@@ -1,0 +1,8 @@
+*.class
+*~
+DEADJOE
+.#*
+*.jar
+*.zip
+*.apk
+bin/
