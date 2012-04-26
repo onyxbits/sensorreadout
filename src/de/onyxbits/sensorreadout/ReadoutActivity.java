@@ -208,6 +208,7 @@ public class ReadoutActivity extends Activity {
     super.onPause();
     sensorManager.unregisterListener((SensorEventListener)ticker);
     try {
+      ticker.interrupt();
       ticker.join();
     }
     catch (Exception e) {
