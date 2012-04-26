@@ -105,7 +105,26 @@ class Ticker extends Thread implements SensorEventListener {
       if (activity.channel[i]!=null) {
         activity.channel[i].add(xTick++,currentEvent.values[i]);
       }
-    }  
+    }
+
+    switch (currentEvent.accuracy) {
+      case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: {
+        activity.renderer.setChartTitle("Sensor accuracy: HIGH");
+        break;
+      }
+      case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM: {
+        activity.renderer.setChartTitle("Sensor accuracy: MEDIUM");
+        break;
+      }
+      case SensorManager.SENSOR_STATUS_ACCURACY_LOW: {
+        activity.renderer.setChartTitle("Sensor accuracy: LOW");
+        break;
+      }
+      default: {
+        activity.renderer.setChartTitle("Sensor accuracy: UNRELIABLE");
+        break;
+      }
+    }
     activity.chartView.repaint();
   }
   
