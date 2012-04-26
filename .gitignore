@@ -6,3 +6,6 @@ DEADJOE
 *.zip
 *.apk
 bin/
+gen/
+bin/*
+gen/*
