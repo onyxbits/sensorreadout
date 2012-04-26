@@ -173,7 +173,7 @@ public class ReadoutActivity extends Activity {
       }
     }
     
-    int[] colors = { Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE };
+    int[] colors = { Color.BLUE, Color.YELLOW, Color.RED, Color.GREEN };
     for (int i=0;i<channel.length;i++) {
       channel[i] = new XYSeries(channelNames[i]);
       sensorData.addSeries(channel[i]);
@@ -183,6 +183,7 @@ public class ReadoutActivity extends Activity {
     }
   }
   
+  @Override
   protected void onResume() {
     super.onResume();
     
@@ -204,6 +205,7 @@ public class ReadoutActivity extends Activity {
     sensorManager.registerListener((SensorEventListener)ticker, sensor, SensorManager.SENSOR_DELAY_UI);
   }
   
+  @Override
   protected void onPause() {
     super.onPause();
     sensorManager.unregisterListener((SensorEventListener)ticker);
