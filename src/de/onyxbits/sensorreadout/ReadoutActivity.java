@@ -100,8 +100,8 @@ public class ReadoutActivity extends Activity {
     renderer.setShowGrid(true);
     renderer.setXAxisMin(0.0);
     renderer.setXAxisMax(100);
-    renderer.setXTitle("Time");
-    chartView = ChartFactory.getTimeChartView(this,sensorData,renderer,"ms");
+    renderer.setXTitle("Time (ms)");
+    chartView = ChartFactory.getLineChartView(this,sensorData,renderer);
     // Note: The chart is not ready to use yet! It still lacks some information, we can only
     // obtain from a SensorEvent, so its either sticking to only known sensors or defereing
     // the final setup till we get our hands on such an event. Design choice: Let's try to even

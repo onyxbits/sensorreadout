@@ -25,7 +25,7 @@ class Ticker extends Thread implements SensorEventListener {
   private ReadoutActivity activity;
   
   /**
-   * Reference to the worker thread
+   * Reference to the worker thread which does the actual UI updating
    */
   private Ticker worker;
   
@@ -34,7 +34,14 @@ class Ticker extends Thread implements SensorEventListener {
    */
   public static final int INTERVAL = 100;
   
+  /**
+   * For moving the viewport of the graph
+   */
   private int xTick = 0;
+  
+  /**
+   * For moving the viewport of the grpah
+   */
   private int lastMinX = 0; 
   
   /**
