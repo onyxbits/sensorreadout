@@ -41,11 +41,6 @@ public class ReadoutActivity extends Activity {
   private ToggleButton update;
   
   /**
-   * Tell the user how reliable the sensor is
-   */
-  private TextView accuracy;
-  
-  /**
    * The displaying component
    */
   protected GraphicalView chartView;
@@ -90,9 +85,7 @@ public class ReadoutActivity extends Activity {
     contentView.setOrientation(LinearLayout.VERTICAL);
     LinearLayout actionBar = new LinearLayout(this);
     update = new ToggleButton(this);
-    accuracy = new TextView(this);
     actionBar.addView(update);
-    actionBar.addView(accuracy);
     contentView.addView(actionBar);
     sensorData = new XYMultipleSeriesDataset();
     renderer = new XYMultipleSeriesRenderer();
