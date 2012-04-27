@@ -23,7 +23,7 @@ import org.achartengine.renderer.*;
  * in the number of the <code>Sensor</code> to display. If none is passed, the
  * first available <code>Sensor</code> is used.
  */
-public class ReadoutActivity extends Activity {
+public class ReadoutActivity extends Activity implements View.OnClickListener {
 
   /**
    * For passing the index number of the <code>Sensor</code> in its <code>SensorManager</code>
@@ -85,6 +85,8 @@ public class ReadoutActivity extends Activity {
     contentView.setOrientation(LinearLayout.VERTICAL);
     LinearLayout actionBar = new LinearLayout(this);
     update = new ToggleButton(this);
+    update.setOnClickListener(this);
+    update.setChecked(true);
     actionBar.addView(update);
     contentView.addView(actionBar);
     sensorData = new XYMultipleSeriesDataset();
@@ -101,8 +103,8 @@ public class ReadoutActivity extends Activity {
     // obtain from a SensorEvent, so its either sticking to only known sensors or defereing
     // the final setup till we get our hands on such an event. Design choice: Let's try to even
     // handle unknown sensors as good as we can.
-    //contentView.addView(chartView);
-    setContentView(chartView);
+    contentView.addView(chartView);
+    setContentView(contentView);
   }
   
   /**
@@ -210,6 +212,25 @@ public class ReadoutActivity extends Activity {
     }
     catch (Exception e) {
       e.printStackTrace();
+    }
+  }
+  
+  // Interface: OnClickListener
+  public void onClick(View v) {
+    if (v==update) {
+      if (update.isChecked()) {
+        ticker = new Ticker(this);
+        ticker.start();
+      }
+      else {
+        try {
+          ticker.interrupt();
+          ticker.join();
+        }
+        catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
     }
   }
 }
