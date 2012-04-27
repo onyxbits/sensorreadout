@@ -70,6 +70,8 @@ class Ticker extends Thread implements SensorEventListener {
   
   @Override
   public void run() {
+    // This class implements a master and a private worker. We have to figure out on which
+    // Thread we are sitting.
     if (worker!=null) {
       // We are the master -> schedule the worker
       try {
