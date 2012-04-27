@@ -170,7 +170,7 @@ public class ReadoutActivity extends Activity implements View.OnClickListener {
       }
     }
     
-    int[] colors = { Color.BLUE, Color.YELLOW, Color.RED, Color.GREEN };
+    int[] colors = { Color.RED, Color.YELLOW, Color.BLUE, Color.GREEN };
     for (int i=0;i<channel.length;i++) {
       channel[i] = new XYSeries(channelNames[i]);
       sensorData.addSeries(channel[i]);
