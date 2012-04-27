@@ -204,6 +204,12 @@ public class ReadoutActivity extends Activity implements PanListener {
   // Interface: PanListener
   public void panApplied() {
     try {
+      // Design decission: When the user pans the view, s/he will (likely) no longer see the point of 
+      // data entry. We might as well stop sampling then, since the user will (likely) not want to
+      // bother finding that point again if it is still moving. 
+      // Follow up design decission: Stopping is final. We don't provide a resume option. Doing so would
+      // only add complexity to the code/app for the sole purpose of producing a faulty graph. If the user
+      // wants to continue, s/he has to return to the OverviewActivity and restart from there.
       sensorManager.unregisterListener((SensorEventListener)ticker);
       ticker.interrupt();
       ticker.join();
