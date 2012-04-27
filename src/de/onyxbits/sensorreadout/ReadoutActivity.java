@@ -16,6 +16,7 @@ import org.achartengine.*;
 import org.achartengine.chart.*;
 import org.achartengine.model.*;
 import org.achartengine.renderer.*;
+import org.achartengine.tools.*;
 
 /**
  * <code>Activity</code> that displays the readout of one <code>Sensor</code>.
@@ -23,7 +24,7 @@ import org.achartengine.renderer.*;
  * in the number of the <code>Sensor</code> to display. If none is passed, the
  * first available <code>Sensor</code> is used.
  */
-public class ReadoutActivity extends Activity implements View.OnClickListener {
+public class ReadoutActivity extends Activity implements PanListener {
 
   /**
    * For passing the index number of the <code>Sensor</code> in its <code>SensorManager</code>
@@ -34,11 +35,6 @@ public class ReadoutActivity extends Activity implements View.OnClickListener {
    * The <code>Sensor</code> we are dealing with
    */
   private Sensor sensor;
-  
-  /**
-   * Allows the user to pause/resume
-   */
-  private ToggleButton update;
   
   /**
    * The displaying component
@@ -79,32 +75,22 @@ public class ReadoutActivity extends Activity implements View.OnClickListener {
     sensor = sensorManager.getSensorList(Sensor.TYPE_ALL).get(idx);
     setTitle(sensor.getName());
     
-    // Build the content view manually. With the GraphicalView it's too much hassle to do it
-    // in XML
-    LinearLayout contentView = new LinearLayout(this);
-    contentView.setOrientation(LinearLayout.VERTICAL);
-    LinearLayout actionBar = new LinearLayout(this);
-    update = new ToggleButton(this);
-    update.setOnClickListener(this);
-    update.setChecked(true);
-    actionBar.addView(update);
-    contentView.addView(actionBar);
     sensorData = new XYMultipleSeriesDataset();
     renderer = new XYMultipleSeriesRenderer();
     renderer.setGridColor(Color.DKGRAY);
     renderer.setShowGrid(true);
     renderer.setXAxisMin(0.0);
     renderer.setXAxisMax(100);
-    renderer.setXTitle("Time (ms)");
+    renderer.setXTitle("Samplerate (1/"+Ticker.SAMPLERATE+" ms)");
     renderer.setChartTitle(" ");
     renderer.setYLabelsAlign(Paint.Align.RIGHT);
     chartView = ChartFactory.getLineChartView(this,sensorData,renderer);
+    chartView.addPanListener(this);
     // Note: The chart is not ready to use yet! It still lacks some information, we can only
     // obtain from a SensorEvent, so its either sticking to only known sensors or defereing
     // the final setup till we get our hands on such an event. Design choice: Let's try to even
     // handle unknown sensors as good as we can.
-    contentView.addView(chartView);
-    setContentView(contentView);
+    setContentView(chartView);
   }
   
   /**
@@ -215,22 +201,13 @@ public class ReadoutActivity extends Activity implements View.OnClickListener {
     }
   }
   
-  // Interface: OnClickListener
-  public void onClick(View v) {
-    if (v==update) {
-      if (update.isChecked()) {
-        ticker = new Ticker(this);
-        ticker.start();
-      }
-      else {
-        try {
-          ticker.interrupt();
-          ticker.join();
-        }
-        catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
+  // Interface: PanListener
+  public void panApplied() {
+    try {
+      sensorManager.unregisterListener((SensorEventListener)ticker);
+      ticker.interrupt();
+      ticker.join();
     }
+    catch (Exception e) {}
   }
 }

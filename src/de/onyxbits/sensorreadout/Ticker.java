@@ -32,7 +32,7 @@ class Ticker extends Thread implements SensorEventListener {
   /**
    * Tick interval in milliseconds
    */
-  public static final int INTERVAL = 100;
+  public static final int SAMPLERATE = 100;
   
   /**
    * For moving the viewport of the graph
@@ -76,7 +76,7 @@ class Ticker extends Thread implements SensorEventListener {
       // We are the master -> schedule the worker
       try {
         while(true) {
-          Thread.sleep(INTERVAL);
+          Thread.sleep(SAMPLERATE);
           activity.runOnUiThread(worker);
         }
       }
