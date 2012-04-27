@@ -81,7 +81,7 @@ public class ReadoutActivity extends Activity implements PanListener {
     renderer.setShowGrid(true);
     renderer.setXAxisMin(0.0);
     renderer.setXAxisMax(100);
-    renderer.setXTitle("Samplerate (1/"+Ticker.SAMPLERATE+" ms)");
+    renderer.setXTitle("Samplerate: 1/"+Ticker.SAMPLERATE+" ms");
     renderer.setChartTitle(" ");
     renderer.setYLabelsAlign(Paint.Align.RIGHT);
     chartView = ChartFactory.getLineChartView(this,sensorData,renderer);
