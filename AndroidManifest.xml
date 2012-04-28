@@ -13,7 +13,6 @@
             </intent-filter>
         </activity>
         
-        <activity android:name="ReadoutActivity">
-        </activity>
+        <activity android:name="ReadoutActivity" />
     </application>
 </manifest> 
