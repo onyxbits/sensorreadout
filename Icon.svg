@@ -17,8 +17,8 @@
    sodipodi:docname="Icon.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="/home/patrick/projects/sensorreadout/res/drawable/icon.png"
-   inkscape:export-xdpi="8.6400013"
-   inkscape:export-ydpi="8.6400013">
+   inkscape:export-xdpi="8.6400023"
+   inkscape:export-ydpi="8.6400023">
   <defs
      id="defs4">
     <linearGradient
@@ -84,14 +84,6 @@
        y1="822.36218"
        x2="334"
        y2="822.36218" />
-    <filter
-       inkscape:collect="always"
-       id="filter3450">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="8.9330807"
-         id="feGaussianBlur3452" />
-    </filter>
     <filter
        inkscape:collect="always"
        id="filter3549">
@@ -211,7 +203,7 @@
          y="681.63135">01001010101110</tspan></text>
     <g
        id="g3422"
-       transform="translate(14.999983,-147.21494)">
+       transform="translate(14.999983,-157.21494)">
       <g
          style="fill:#000000;filter:url(#filter3418)"
          transform="translate(10,10)"
@@ -300,57 +292,58 @@
       </g>
     </g>
     <g
-       id="g3671">
+       id="g2432"
+       transform="matrix(0.9382172,0,0,0.9382172,20.677937,25.988615)">
       <path
          sodipodi:type="arc"
-         style="opacity:0.8;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3.78888893000000015;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.89444444000000001, 1.89444444000000001;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3549)"
+         style="opacity:0.8;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:4.21989298;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.10994646, 2.10994646;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3549)"
          id="path3547"
          sodipodi:cx="404.5"
          sodipodi:cy="426.86218"
          sodipodi:rx="170.5"
          sodipodi:ry="170.5"
          d="M 575,426.86218 A 170.5,170.5 0 1 1 234,426.86218 A 170.5,170.5 0 1 1 575,426.86218 z"
-         transform="matrix(1.0557185,0,0,1.0557185,-88.393659,-48.044642)" />
+         transform="matrix(1.0103112,0,0,1.0103112,-70.198467,-6.8340465)" />
       <path
-         transform="matrix(1.0557185,0,0,1.0557185,-98.393659,-58.044642)"
+         transform="matrix(1.0103112,0,0,1.0103112,-79.768359,-16.403939)"
          d="M 575,426.86218 A 170.5,170.5 0 1 1 234,426.86218 A 170.5,170.5 0 1 1 575,426.86218 z"
          sodipodi:ry="170.5"
          sodipodi:rx="170.5"
          sodipodi:cy="426.86218"
          sodipodi:cx="404.5"
          id="path3521"
-         style="opacity:0.80000000000000004;fill:#729fcf;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.78888893000000015;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.89444444000000001, 1.89444444000000001;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3569)"
+         style="opacity:0.8;fill:#729fcf;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.78888893;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.89444444, 1.89444444;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3569)"
          sodipodi:type="arc" />
       <path
          sodipodi:type="arc"
-         style="opacity:0.8;fill:#3465a4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6.31481504000000005;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.15740739999999986, 3.15740739999999986;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3553)"
+         style="opacity:0.8;fill:#3465a4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6.31481504;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.1574074, 3.1574074;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3553)"
          id="path3541"
          sodipodi:cx="404.5"
          sodipodi:cy="426.86218"
          sodipodi:rx="170.5"
          sodipodi:ry="170.5"
          d="M 575,426.86218 A 170.5,170.5 0 1 1 234,426.86218 A 170.5,170.5 0 1 1 575,426.86218 z"
-         transform="matrix(0.6334311,0,0,0.6334311,72.421594,122.21388)" />
+         transform="matrix(0.6648377,0,0,0.6648377,59.975653,131.06561)" />
       <path
-         transform="matrix(0.3800587,0,0,0.3800587,174.91075,230.36899)"
+         transform="matrix(0.3637121,0,0,0.3637121,181.78101,259.60479)"
          d="M 575,426.86218 A 170.5,170.5 0 1 1 234,426.86218 A 170.5,170.5 0 1 1 575,426.86218 z"
          sodipodi:ry="170.5"
          sodipodi:rx="170.5"
          sodipodi:cy="426.86218"
          sodipodi:cx="404.5"
          id="path3543"
-         style="opacity:0.8;fill:#204a87;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10.52469158000000071;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:5.26234567000000020, 5.26234567000000020;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3561)"
+         style="opacity:0.8;fill:#204a87;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10.52469158;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:5.26234567, 5.26234567;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3561)"
          sodipodi:type="arc" />
       <path
          sodipodi:type="arc"
-         style="opacity:0.80000000000000004;fill:#5c3566;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:17.54115295000000074;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8.77057611999999942, 8.77057611999999942;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3589)"
+         style="opacity:0.8;fill:#5c3566;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:17.54115295;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:8.77057612, 8.77057612;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3589)"
          id="path3545"
          sodipodi:cx="404.5"
          sodipodi:cy="426.86218"
          sodipodi:rx="170.5"
          sodipodi:ry="170.5"
          d="M 575,426.86218 A 170.5,170.5 0 1 1 234,426.86218 A 170.5,170.5 0 1 1 575,426.86218 z"
-         transform="matrix(0.1140176,0,0,0.1140176,282.52437,343.93186)" />
+         transform="matrix(0.1091136,0,0,0.1091136,284.76608,368.28323)" />
     </g>
   </g>
 </svg>
