@@ -220,7 +220,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
   
   // Interface: View.OnTouchListener
   public boolean onTouch(View v, MotionEvent event) {
-    if (ticker!=null) {
+    if (v==chartView && ticker!=null) {
       try {
         // Design decission: When the user pans the view, s/he will (likely) no longer see the point of 
         // data entry. We might as well stop sampling then, since the user will (likely) not want to
@@ -235,6 +235,6 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
       }
       catch (Exception e) {}
     }
-    return chartView.onTouchEvent(event);
+    return v.onTouchEvent(event);
   }
 }
