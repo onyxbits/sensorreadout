@@ -40,7 +40,7 @@ import org.achartengine.tools.*;
  * in the number of the <code>Sensor</code> to display. If none is passed, the
  * first available <code>Sensor</code> is used.
  */
-public class ReadoutActivity extends Activity implements PanListener {
+public class ReadoutActivity extends Activity implements View.OnTouchListener {
 
   /**
    * For passing the index number of the <code>Sensor</code> in its <code>SensorManager</code>
@@ -101,7 +101,7 @@ public class ReadoutActivity extends Activity implements PanListener {
     renderer.setChartTitle(" ");
     renderer.setYLabelsAlign(Paint.Align.RIGHT);
     chartView = ChartFactory.getLineChartView(this,sensorData,renderer);
-    chartView.addPanListener(this);
+    chartView.setOnTouchListener(this);
     // Note: The chart is not ready to use yet! It still lacks some information, we can only
     // obtain from a SensorEvent, so its either sticking to only known sensors or defereing
     // the final setup till we get our hands on such an event. Design choice: Let's try to even
@@ -211,25 +211,30 @@ public class ReadoutActivity extends Activity implements PanListener {
     try {
       ticker.interrupt();
       ticker.join();
+      ticker=null;
     }
     catch (Exception e) {
       e.printStackTrace();
     }
   }
   
-  // Interface: PanListener
-  public void panApplied() {
-    try {
-      // Design decission: When the user pans the view, s/he will (likely) no longer see the point of 
-      // data entry. We might as well stop sampling then, since the user will (likely) not want to
-      // bother finding that point again if it is still moving. 
-      // Follow up design decission: Stopping is final. We don't provide a resume option. Doing so would
-      // only add complexity to the code/app for the sole purpose of producing a faulty graph. If the user
-      // wants to continue, s/he has to return to the OverviewActivity and restart from there.
-      sensorManager.unregisterListener((SensorEventListener)ticker);
-      ticker.interrupt();
-      ticker.join();
+  // Interface: View.OnTouchListener
+  public boolean onTouch(View v, MotionEvent event) {
+    if (ticker!=null) {
+      try {
+        // Design decission: When the user pans the view, s/he will (likely) no longer see the point of 
+        // data entry. We might as well stop sampling then, since the user will (likely) not want to
+        // bother finding that point again if it is still moving. 
+        // Follow up design decission: Stopping is final. We don't provide a resume option. Doing so would
+        // only add complexity to the code/app for the sole purpose of producing a faulty graph. If the user
+        // wants to continue, s/he has to return to the OverviewActivity and restart from there.
+        sensorManager.unregisterListener((SensorEventListener)ticker);
+        ticker.interrupt();
+        ticker.join();
+        ticker=null;
+      }
+      catch (Exception e) {}
     }
-    catch (Exception e) {}
+    return chartView.onTouchEvent(event);
   }
 }
