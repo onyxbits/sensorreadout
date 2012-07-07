@@ -41,6 +41,7 @@ DialogInterface.OnClickListener  {
     SensorManager sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
     setListAdapter(new SensorAdapter(this,0,sensorManager.getSensorList(Sensor.TYPE_ALL)));
     getListView().setOnItemLongClickListener(this);
+    AppRater.app_launched(this);
   }
   
   @Override
@@ -75,5 +76,7 @@ DialogInterface.OnClickListener  {
   }
   
   public void onClick(DialogInterface di, int id) {
+    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.onyxbits.de"));
+    startActivity(browserIntent);
   }
 }
