@@ -18,31 +18,62 @@ package de.onyxbits.sensorreadout;
 
 import android.app.*;
 import android.os.Bundle;
+import android.os.*;
 import android.widget.*;
 import android.view.*;
 import android.hardware.*;
 import java.util.*;
 import android.graphics.*;
 import android.content.*;
+import android.net.*;
 
 /**
  * Main <code>Activity</code>. Shows a list of all available <code>Sensor</code>S and
  * starts the <code>ReadoutActivity</code> of the selected <code>Sensor</code>
  */
-public class OverviewActivity extends ListActivity {
+public class OverviewActivity extends ListActivity implements AdapterView.OnItemLongClickListener,
+DialogInterface.OnClickListener  {
 
-  
   /** Called when the activity is first created. */
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     SensorManager sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
     setListAdapter(new SensorAdapter(this,0,sensorManager.getSensorList(Sensor.TYPE_ALL)));
+    getListView().setOnItemLongClickListener(this);
   }
   
+  @Override
   public void onListItemClick(ListView l, View v, int position, long id) {
+    // Short click on an item starts the readout activity
     Intent intent = new Intent(this, ReadoutActivity.class);
     intent.putExtra(ReadoutActivity.SENSORINDEX,position);
     startActivity(intent);
+  }
+  
+  @Override
+  public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+    // Long click on an item brings up verbose info about the sensor
+    Sensor sensor = (Sensor)parent.getItemAtPosition(position);
+    LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+    View layout = inflater.inflate(R.layout.verbose,null);
+    ((TextView)layout.findViewById(R.id.vendor_value)).setText(sensor.getVendor());
+    ((TextView)layout.findViewById(R.id.power_value)).setText(sensor.getPower()+" mA");
+    ((TextView)layout.findViewById(R.id.resolution_value)).setText(sensor.getResolution()+"");
+    ((TextView)layout.findViewById(R.id.version_value)).setText(sensor.getVersion()+"");
+    ((TextView)layout.findViewById(R.id.delay_value)).setText(sensor.getMinDelay()+" µS");
+    ((TextView)layout.findViewById(R.id.range_value)).setText(sensor.getMaximumRange()+"");
+    ScrollView scrollView = new ScrollView(this);
+    scrollView.addView(layout);
+    
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setTitle(sensor.getName());
+    builder.setView(scrollView);
+    builder.create().show();
+    
+    return true;
+  }
+  
+  public void onClick(DialogInterface di, int id) {
   }
 }

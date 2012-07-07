@@ -40,8 +40,56 @@ class SensorAdapter extends ArrayAdapter<Sensor> {
     ret = inflater.inflate(R.layout.identifierplate,null);
     
     ((TextView)ret.findViewById(R.id.sensor_name)).setText(sensor.getName());
-    ((TextView)ret.findViewById(R.id.sensor_vendor)).setText(sensor.getVendor());
-    ((TextView)ret.findViewById(R.id.sensor_power)).setText(sensor.getPower()+" mA");
+    ImageView icon = (ImageView)ret.findViewById(R.id.sensor_icon);
+    switch (sensor.getType()) {
+      case Sensor.TYPE_ACCELEROMETER: {
+        icon.setImageResource(R.drawable.ic_sensor_accelerometer);
+        break;
+      }
+      case Sensor.TYPE_TEMPERATURE: {
+        // Deprecated -> Fall through
+      }
+      case Sensor.TYPE_AMBIENT_TEMPERATURE: {
+        icon.setImageResource(R.drawable.ic_sensor_ambient_temperature);
+        break;
+      }
+      case Sensor.TYPE_GRAVITY: {
+        icon.setImageResource(R.drawable.ic_sensor_gravity);
+        break;
+      }
+      case Sensor.TYPE_GYROSCOPE: {
+        icon.setImageResource(R.drawable.ic_sensor_gyroscope);
+        break;
+      }
+      case Sensor.TYPE_LIGHT: {
+        icon.setImageResource(R.drawable.ic_sensor_light);
+        break;
+      }
+      case Sensor.TYPE_LINEAR_ACCELERATION: {
+        icon.setImageResource(R.drawable.ic_sensor_linear_acceleration);
+        break;
+      }
+      case Sensor.TYPE_MAGNETIC_FIELD: {
+        icon.setImageResource(R.drawable.ic_sensor_magnetic_field);
+        break;
+      }
+      case Sensor.TYPE_PRESSURE: {
+        icon.setImageResource(R.drawable.ic_sensor_pressure);
+        break;
+      }
+      case Sensor.TYPE_PROXIMITY: {
+        icon.setImageResource(R.drawable.ic_sensor_proximity);
+        break;
+      }
+      case Sensor.TYPE_RELATIVE_HUMIDITY: {
+        icon.setImageResource(R.drawable.ic_sensor_relatice_humidity);
+        break;
+      }
+      case Sensor.TYPE_ROTATION_VECTOR: {
+        icon.setImageResource(R.drawable.ic_sensor_rotation_vector);
+        break;
+      }
+    }
             
     return ret;
   }

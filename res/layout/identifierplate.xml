@@ -3,25 +3,24 @@
 	android:id="@+id/widget32"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:orientation="vertical"
+	android:orientation="horizontal"
 	xmlns:android="http://schemas.android.com/apk/res/android">
-<TextView
-	android:id="@+id/sensor_name"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:text="TextView"
-	android:textStyle="bold" />
-<TextView
-	android:id="@+id/sensor_vendor"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:text="TextView"
-	android:textStyle="italic" />
-<TextView
-	android:id="@+id/sensor_power"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:text="TextView"
-	android:typeface="monospace"
-	android:layout_gravity="bottom" />
+	<ImageView
+        	android:id="@+id/sensor_icon"
+        	android:layout_width="22px"
+        	android:layout_height="22px"
+        	android:layout_marginLeft="4px"
+        	android:layout_marginRight="10px"
+        	android:layout_marginTop="4px"
+        	android:src="@drawable/ic_sensor_unknown" >
+    	</ImageView>
+
+	<TextView
+		android:id="@+id/sensor_name"
+		android:drawablePadding="8dp"
+		android:singleLine="true"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceLarge" 
+		android:text="" />
 </LinearLayout>
