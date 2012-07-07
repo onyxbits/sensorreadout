@@ -46,8 +46,10 @@ class SensorAdapter extends ArrayAdapter<Sensor> {
       // app to require a low API level while still being able to show icons for sensors that
       // came in later.
       int imageResource = getContext().getResources().getIdentifier("drawable/ic_sensor_"+sensor.getType(), null, "de.onyxbits.sensorreadout");
-      ImageView icon = (ImageView)ret.findViewById(R.id.sensor_icon);
-      icon.setImageResource(imageResource);
+      if (imageResource!=0) {
+        ImageView icon = (ImageView)ret.findViewById(R.id.sensor_icon);
+        icon.setImageResource(imageResource);
+      }
     }
     catch (Exception e) {
       // No problem here, we got a default icon set already

@@ -69,6 +69,19 @@ DialogInterface.OnClickListener  {
     
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle(sensor.getName());
+    int imageResource = R.drawable.ic_sensor_unknown;
+    try {
+      // Don't use a giant switch statement here to map types to image files. Besides saving
+      // a lot of code, this solution also has the advantage that we can declare the
+      // app to require a low API level while still being able to show icons for sensors that
+      // came in later.
+      imageResource = getResources().getIdentifier("drawable/ic_sensor_"+sensor.getType(), null, "de.onyxbits.sensorreadout");
+      if (imageResource==0) {
+        imageResource=R.drawable.ic_sensor_unknown;
+      }
+    }
+    catch (Exception e) {}
+    builder.setIcon(imageResource);
     builder.setView(scrollView);
     builder.create().show();
     
