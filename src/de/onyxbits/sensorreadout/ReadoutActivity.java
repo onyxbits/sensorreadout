@@ -165,6 +165,18 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
       case Sensor.TYPE_ORIENTATION: {
         break;
       }
+      case 7:
+      case 13: {
+        // Dirty hack: TYPE_TEMPERATURE became deprecated in favour of TYPE_AMBIENT_TEMPERATURE. By
+        // using the numeric instead of the symbolic constants, we can easily compile for pre- and
+        // post API level 14.
+        renderer.setYTitle("°C");
+        channel = new XYSeries[1];
+        channelNames = new String[1];
+        channelNames[0] = "Ambient room temperature";
+        break;
+      }
+      
       default: {
         // Unknown sensor -> Just show all the channels.
         channel = new XYSeries[event.values.length];
