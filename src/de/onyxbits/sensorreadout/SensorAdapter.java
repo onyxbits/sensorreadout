@@ -38,57 +38,19 @@ class SensorAdapter extends ArrayAdapter<Sensor> {
     Sensor sensor = getItem(position);
     LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     ret = inflater.inflate(R.layout.identifierplate,null);
-    
     ((TextView)ret.findViewById(R.id.sensor_name)).setText(sensor.getName());
-    ImageView icon = (ImageView)ret.findViewById(R.id.sensor_icon);
-    switch (sensor.getType()) {
-      case Sensor.TYPE_ACCELEROMETER: {
-        icon.setImageResource(R.drawable.ic_sensor_accelerometer);
-        break;
-      }
-      case Sensor.TYPE_TEMPERATURE: {
-        // Deprecated -> Fall through
-      }
-      case Sensor.TYPE_AMBIENT_TEMPERATURE: {
-        icon.setImageResource(R.drawable.ic_sensor_ambient_temperature);
-        break;
-      }
-      case Sensor.TYPE_GRAVITY: {
-        icon.setImageResource(R.drawable.ic_sensor_gravity);
-        break;
-      }
-      case Sensor.TYPE_GYROSCOPE: {
-        icon.setImageResource(R.drawable.ic_sensor_gyroscope);
-        break;
-      }
-      case Sensor.TYPE_LIGHT: {
-        icon.setImageResource(R.drawable.ic_sensor_light);
-        break;
-      }
-      case Sensor.TYPE_LINEAR_ACCELERATION: {
-        icon.setImageResource(R.drawable.ic_sensor_linear_acceleration);
-        break;
-      }
-      case Sensor.TYPE_MAGNETIC_FIELD: {
-        icon.setImageResource(R.drawable.ic_sensor_magnetic_field);
-        break;
-      }
-      case Sensor.TYPE_PRESSURE: {
-        icon.setImageResource(R.drawable.ic_sensor_pressure);
-        break;
-      }
-      case Sensor.TYPE_PROXIMITY: {
-        icon.setImageResource(R.drawable.ic_sensor_proximity);
-        break;
-      }
-      case Sensor.TYPE_RELATIVE_HUMIDITY: {
-        icon.setImageResource(R.drawable.ic_sensor_relatice_humidity);
-        break;
-      }
-      case Sensor.TYPE_ROTATION_VECTOR: {
-        icon.setImageResource(R.drawable.ic_sensor_rotation_vector);
-        break;
-      }
+    
+    try {
+      // Don't use a giant switch statement here to map types to image files. Besides saving
+      // a lot of code, this solution also has the advantage that we can declare the
+      // app to require a low API level while still being able to show icons for sensors that
+      // came in later.
+      int imageResource = getContext().getResources().getIdentifier("drawable/ic_sensor_"+sensor.getType(), null, "de.onyxbits.sensorreadout");
+      ImageView icon = (ImageView)ret.findViewById(R.id.sensor_icon);
+      icon.setImageResource(imageResource);
+    }
+    catch (Exception e) {
+      // No problem here, we got a default icon set already
     }
             
     return ret;
