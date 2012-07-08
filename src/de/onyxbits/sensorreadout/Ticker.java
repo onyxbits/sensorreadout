@@ -111,6 +111,7 @@ class Ticker extends Thread implements SensorEventListener {
   private void updateUI() {
     
     if(activity.channel==null) {
+      // Dirty, but we only learn a few things after getting the first event.
       activity.configure(currentEvent);
     }
     
@@ -121,9 +122,11 @@ class Ticker extends Thread implements SensorEventListener {
 
     for (int i=0;i<activity.channel.length;i++) {
       if (activity.channel[i]!=null) {
-        activity.channel[i].add(xTick++,currentEvent.values[i]);
+        activity.channel[i].add(xTick,currentEvent.values[i]);
       }
     }
+    
+    xTick++;
 
     switch (currentEvent.accuracy) {
       case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: {
