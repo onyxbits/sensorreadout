@@ -48,6 +48,11 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
   public static final String SENSORINDEX = "de.onyxbits.sensorreadout.SensorIndex";
   
   /**
+   * How often to sample per second.
+   */
+  public static final int SAMPLERATE = 10;
+  
+  /**
    * The <code>Sensor</code> we are dealing with
    */
   private Sensor sensor;
@@ -96,8 +101,9 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
     renderer.setGridColor(Color.DKGRAY);
     renderer.setShowGrid(true);
     renderer.setXAxisMin(0.0);
-    renderer.setXAxisMax(100);
-    renderer.setXTitle("Samplerate: 1/"+Ticker.SAMPLERATE+" ms");
+    renderer.setXTitle("Samplerate: 1/"+ (1000 / SAMPLERATE) +" ms");
+    renderer.setXAxisMax(10000 / (1000 / SAMPLERATE)); // 10 seconds wide
+    renderer.setXLabels(10); // 1 second per DIV
     renderer.setChartTitle(" ");
     renderer.setYLabelsAlign(Paint.Align.RIGHT);
     chartView = ChartFactory.getLineChartView(this,sensorData,renderer);

@@ -46,11 +46,6 @@ class Ticker extends Thread implements SensorEventListener {
   private Ticker worker;
   
   /**
-   * Tick interval in milliseconds
-   */
-  public static final int SAMPLERATE = 100;
-  
-  /**
    * For moving the viewport of the graph
    */
   private int xTick = 0;
@@ -59,6 +54,11 @@ class Ticker extends Thread implements SensorEventListener {
    * For moving the viewport of the grpah
    */
   private int lastMinX = 0; 
+  
+  /**
+   * How long to sleep between taking a sample
+   */
+  private static final int SLEEPTIME = (int) 1000/ReadoutActivity.SAMPLERATE;
   
   /**
    * Create a new <code>Ticker</code> and start ticking the <code>Activity</code>
@@ -92,7 +92,7 @@ class Ticker extends Thread implements SensorEventListener {
       // We are the master -> schedule the worker
       try {
         while(true) {
-          Thread.sleep(SAMPLERATE);
+          Thread.sleep(SLEEPTIME);
           activity.runOnUiThread(worker);
         }
       }
