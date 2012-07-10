@@ -101,6 +101,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
     renderer.setGridColor(Color.DKGRAY);
     renderer.setShowGrid(true);
     renderer.setXAxisMin(0.0);
+    double[] range= {1,1,1,1};
     renderer.setXTitle("Samplerate: 1/"+ (1000 / SAMPLERATE) +" ms");
     renderer.setXAxisMax(10000 / (1000 / SAMPLERATE)); // 10 seconds wide
     renderer.setXLabels(10); // 1 second per DIV
@@ -196,6 +197,25 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
       sensorData.addSeries(channel[i]);
       XYSeriesRenderer r = new XYSeriesRenderer();
       r.setColor(colors[i % colors.length] );
+      renderer.addSeriesRenderer(r);
+    }
+    
+    if (channel.length==1) {
+      // I'm pretty sure there's a more elegant solution to this, but for now: dirty hack!
+      // Sensors that only have one channel, which also only delivers an unchanging value without
+      // external stimulus (e.g. cheap light or proximity sensors) don't provide the chartengine
+      // with enough data to chop the Y Axis into units. The result is that the readout flatlines
+      // and get's painted over by the X Axis. So to prevent this, we add two invisible channels
+      // that each contain one sample.
+      XYSeries[] fake = {new XYSeries("mute A"), new XYSeries("mute B")};
+      double half = event.values[0]*0.5+1;
+      XYSeriesRenderer r = new XYSeriesRenderer();
+      r.setColor(Color.BLACK);
+      fake[0].add(0,event.values[0]+half);
+      sensorData.addSeries(fake[0]);
+      fake[1].add(0,event.values[0]-half);
+      sensorData.addSeries(fake[1]);
+      renderer.addSeriesRenderer(r);
       renderer.addSeriesRenderer(r);
     }
   }
