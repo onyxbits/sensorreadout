@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	android:id="@+id/verboseView"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:drawablePadding="8dp"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<TextView
+		android:id="@+id/vendor_label"
+		android:typeface="monospace"
+		android:layout_width="fill_parent"
+		android:textStyle="bold"
+		android:layout_height="wrap_content"
+		android:text="Vendor" />
+	<TextView
+		android:id="@+id/vendor_value"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingBottom="6dp"
+		android:paddingLeft="8dp"
+		android:text="unknown" />
+	
+	<TextView
+		android:id="@+id/power_label"
+		android:typeface="monospace"
+		android:layout_width="fill_parent"
+		android:textStyle="bold"
+		android:layout_height="wrap_content"
+		android:text="Power consumption" />
+	<TextView
+		android:id="@+id/power_value"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingBottom="6dp"
+		android:paddingLeft="8dp"
+		android:text="unknown" />
+		
+	<TextView
+		android:id="@+id/resolution_label"
+		android:typeface="monospace"
+		android:layout_width="fill_parent"
+		android:textStyle="bold"
+		android:layout_height="wrap_content"
+		android:text="Sensor Resolution" />
+	<TextView
+		android:id="@+id/resolution_value"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingBottom="6dp"
+		android:paddingLeft="8dp"
+		android:text="unknown" />
+		
+	<TextView
+		android:id="@+id/version_label"
+		android:typeface="monospace"
+		android:layout_width="fill_parent"
+		android:textStyle="bold"
+		android:layout_height="wrap_content"
+		android:text="Version" />
+	<TextView
+		android:id="@+id/version_value"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingBottom="6dp"
+		android:paddingLeft="8dp"
+		android:text="unknown" />
+		
+	<TextView
+		android:id="@+id/delay_label"
+		android:typeface="monospace"
+		android:layout_width="fill_parent"
+		android:textStyle="bold"
+		android:layout_height="wrap_content"
+		android:text="Minimal Delay" />
+	<TextView
+		android:id="@+id/delay_value"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingBottom="6dp"
+		android:paddingLeft="8dp"
+		android:text="unknown" />
+		
+	<TextView
+		android:id="@+id/range_label"
+		android:typeface="monospace"
+		android:layout_width="fill_parent"
+		android:textStyle="bold"
+		android:layout_height="wrap_content"
+		android:text="Range" />
+	<TextView
+		android:id="@+id/range_value"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:paddingLeft="8dp"
+		android:text="unknown" />
+		
+</LinearLayout>
