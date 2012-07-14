@@ -40,21 +40,84 @@ class SensorAdapter extends ArrayAdapter<Sensor> {
     ret = inflater.inflate(R.layout.identifierplate,null);
     ((TextView)ret.findViewById(R.id.sensor_name)).setText(sensor.getName());
     
-    try {
-      // Don't use a giant switch statement here to map types to image files. Besides saving
-      // a lot of code, this solution also has the advantage that we can declare the
-      // app to require a low API level while still being able to show icons for sensors that
-      // came in later.
-      int imageResource = getContext().getResources().getIdentifier("drawable/ic_sensor_"+sensor.getType(), null, "de.onyxbits.sensorreadout");
-      if (imageResource!=0) {
-        ImageView icon = (ImageView)ret.findViewById(R.id.sensor_icon);
-        icon.setImageResource(imageResource);
+    TextView description = (TextView)ret.findViewById(R.id.sensor_description);
+    ImageView icon = (ImageView)ret.findViewById(R.id.sensor_icon);
+    
+    switch(sensor.getType()) {
+      // Bit of a dirty hack: Use numeric instead of symbolic constants since some have been
+      // deprecated while others have been added in higher API levels. Going numeric causes
+      // the least headaches for supporting all devices.
+      case 1: {
+        icon.setImageResource(R.drawable.ic_sensor_1);
+        description.setText(R.string.sensor_desc_1);
+        break;
+      }
+      case 2: {
+        icon.setImageResource(R.drawable.ic_sensor_2);
+        description.setText(R.string.sensor_desc_2);
+        break;
+      }
+      case 3: {
+        icon.setImageResource(R.drawable.ic_sensor_3);
+        description.setText(R.string.sensor_desc_3);
+        break;
+      }
+      case 4: {
+        icon.setImageResource(R.drawable.ic_sensor_4);
+        description.setText(R.string.sensor_desc_4);
+        break;
+      }
+      case 5: {
+        icon.setImageResource(R.drawable.ic_sensor_5);
+        description.setText(R.string.sensor_desc_5);
+        break;
+      }
+      case 6: {
+        icon.setImageResource(R.drawable.ic_sensor_6);
+        description.setText(R.string.sensor_desc_6);
+        break;
+      }
+      case 7: {
+        // Sensor.TYPE_TEMPERATURE has been deprectated -> use 13 instead
+        icon.setImageResource(R.drawable.ic_sensor_13);
+        description.setText(R.string.sensor_desc_13);
+        break;
+      }
+      case 8: {
+        icon.setImageResource(R.drawable.ic_sensor_8);
+        description.setText(R.string.sensor_desc_8);
+        break;
+      }
+      case 9: {
+        icon.setImageResource(R.drawable.ic_sensor_9);
+        description.setText(R.string.sensor_desc_9);
+        break;
+      }
+      case 10: {
+        icon.setImageResource(R.drawable.ic_sensor_10);
+        description.setText(R.string.sensor_desc_10);
+        break;
+      }
+      case 11: {
+        icon.setImageResource(R.drawable.ic_sensor_11);
+        description.setText(R.string.sensor_desc_11);
+        break;
+      }
+      case 12: {
+        icon.setImageResource(R.drawable.ic_sensor_12);
+        description.setText(R.string.sensor_desc_12);
+        break;
+      }
+      case 13: {
+        icon.setImageResource(R.drawable.ic_sensor_13);
+        description.setText(R.string.sensor_desc_13);
+        break;
+      }
+      default: {
+        // Defaults are already set in the XML file
       }
     }
-    catch (Exception e) {
-      // No problem here, we got a default icon set already
-    }
-            
+    
     return ret;
   }
 }
