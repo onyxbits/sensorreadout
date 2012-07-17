@@ -258,7 +258,10 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
   
   // Interface: View.OnTouchListener
   public boolean onTouch(View v, MotionEvent event) {
-    if (v==chartView && ticker!=null) {
+    // channel!=null -> need to ensure that configure() has been called before the user is
+    // allowed to abort (can happen by an accidental doubletap on app start). Otherwise the
+    // screen will just stay black, making the app appear to hang.
+    if (v==chartView && ticker!=null && channel!=null) {
       try {
         // Design decission: When the user pans the view, s/he will (likely) no longer see the point of 
         // data entry. We might as well stop sampling then, since the user will (likely) not want to
