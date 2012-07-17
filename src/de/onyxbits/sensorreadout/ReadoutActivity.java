@@ -273,6 +273,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
         ticker.interrupt();
         ticker.join();
         ticker=null;
+        Toast.makeText(this,"Stopped",Toast.LENGTH_SHORT).show();
       }
       catch (Exception e) {}
     }
