@@ -237,6 +237,15 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
         break;
       }
     }
+    
+    if (channel!=null) {
+      for (XYSeries chan: channel) {
+        if (chan!=null) {
+          chan.clear();
+        }
+      }
+    }
+    
     ticker = new Ticker(this);
     ticker.start();
     sensorManager.registerListener((SensorEventListener)ticker, sensor, SensorManager.SENSOR_DELAY_UI);
