@@ -1,6 +1,5 @@
 package de.onyxbits.sensorreadout;
 import android.app.*;
-import android.os.Bundle;
 import android.os.*;
 import android.widget.*;
 import android.view.*;
@@ -67,12 +66,12 @@ public class AppRater implements DialogInterface.OnClickListener {
   public static void showRateDialog(Context ctx) {
     AppRater rater = new AppRater(ctx);
     AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-    builder.setTitle("Rate this app?");
+    builder.setTitle(R.string.apprater_title);
     builder.setIcon(R.drawable.ic_rate);
-    builder.setMessage("Hi,\nseems like you find this app useful. Would you consider rating it? This will only take a minute of your time, but encourages further development.");
-    builder.setPositiveButton("Sure!",rater);
-    builder.setNegativeButton("No thanks",rater);
-    builder.setNeutralButton("Later",rater);
+    builder.setMessage(R.string.apprater_message);
+    builder.setPositiveButton(R.string.apprater_positive,rater);
+    builder.setNegativeButton(R.string.apprater_negative,rater);
+    builder.setNeutralButton(R.string.apprater_neutral,rater);
     builder.create().show();
   }
   

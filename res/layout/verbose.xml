@@ -6,111 +6,118 @@
 	android:orientation="vertical"
 	android:drawablePadding="8dp"
 	xmlns:android="http://schemas.android.com/apk/res/android">
+
 	<TextView
-		android:layout_marginLeft="5dp"
 		android:id="@+id/vendor_label"
-		android:typeface="monospace"
 		android:layout_width="fill_parent"
-		android:textStyle="bold"
 		android:layout_height="wrap_content"
-		android:text="Vendor" />
+		android:layout_marginLeft="5dp"
+		android:text="@string/lbl_vendor"
+		android:textStyle="bold"
+		android:typeface="monospace" />
+
 	<TextView
-		android:layout_marginLeft="20dp"
-		android:layout_marginBottom="5dp"
 		android:id="@+id/vendor_value"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="5dp"
+		android:layout_marginLeft="20dp"
 		android:paddingBottom="6dp"
 		android:paddingLeft="8dp"
-		android:text="unknown" />
+		android:text="@string/lbl_unknown" />
 	
 	<TextView
-		android:layout_marginLeft="5dp"
 		android:id="@+id/power_label"
-		android:typeface="monospace"
 		android:layout_width="fill_parent"
-		android:textStyle="bold"
 		android:layout_height="wrap_content"
-		android:text="Power consumption" />
+		android:layout_marginLeft="5dp"
+		android:text="@string/lbl_powerconsumption"
+		android:textStyle="bold"
+		android:typeface="monospace" />
+
 	<TextView
-		android:layout_marginLeft="20dp"
-		android:layout_marginBottom="5dp"
 		android:id="@+id/power_value"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="5dp"
+		android:layout_marginLeft="20dp"
 		android:paddingBottom="6dp"
 		android:paddingLeft="8dp"
-		android:text="unknown" />
+		android:text="@string/lbl_unknown" />
 		
 	<TextView
-		android:layout_marginLeft="5dp"
 		android:id="@+id/resolution_label"
-		android:typeface="monospace"
 		android:layout_width="fill_parent"
-		android:textStyle="bold"
 		android:layout_height="wrap_content"
-		android:text="Sensor Resolution" />
+		android:layout_marginLeft="5dp"
+		android:text="@string/lbl_sensor_resolution"
+		android:textStyle="bold"
+		android:typeface="monospace" />
+
 	<TextView
-		android:layout_marginLeft="20dp"
-		android:layout_marginBottom="5dp"
 		android:id="@+id/resolution_value"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="5dp"
+		android:layout_marginLeft="20dp"
 		android:paddingBottom="6dp"
 		android:paddingLeft="8dp"
-		android:text="unknown" />
+		android:text="@string/lbl_unknown" />
 		
 	<TextView
-		android:layout_marginLeft="5dp"
 		android:id="@+id/version_label"
-		android:typeface="monospace"
 		android:layout_width="fill_parent"
-		android:textStyle="bold"
 		android:layout_height="wrap_content"
-		android:text="Version" />
+		android:layout_marginLeft="5dp"
+		android:text="@string/lbl_sensor_version"
+		android:textStyle="bold"
+		android:typeface="monospace" />
+
 	<TextView
-		android:layout_marginLeft="20dp"
-		android:layout_marginBottom="5dp"
 		android:id="@+id/version_value"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="5dp"
+		android:layout_marginLeft="20dp"
 		android:paddingBottom="6dp"
 		android:paddingLeft="8dp"
-		android:text="unknown" />
+		android:text="@string/lbl_unknown" />
 		
 	<TextView
-		android:layout_marginLeft="5dp"
 		android:id="@+id/delay_label"
-		android:typeface="monospace"
 		android:layout_width="fill_parent"
-		android:textStyle="bold"
 		android:layout_height="wrap_content"
-		android:text="Minimal Delay" />
+		android:layout_marginLeft="5dp"
+		android:text="@string/lbl_min_delay"
+		android:textStyle="bold"
+		android:typeface="monospace" />
+
 	<TextView
-		android:layout_marginLeft="20dp"
-		android:layout_marginBottom="5dp"
 		android:id="@+id/delay_value"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="5dp"
+		android:layout_marginLeft="20dp"
 		android:paddingBottom="6dp"
 		android:paddingLeft="8dp"
-		android:text="unknown" />
+		android:text="@string/lbl_unknown" />
 		
 	<TextView
-		android:layout_marginLeft="5dp"
 		android:id="@+id/range_label"
-		android:typeface="monospace"
 		android:layout_width="fill_parent"
-		android:textStyle="bold"
 		android:layout_height="wrap_content"
-		android:text="Range" />
+		android:layout_marginLeft="5dp"
+		android:text="@string/lbl_range"
+		android:textStyle="bold"
+		android:typeface="monospace" />
+
 	<TextView
-		android:layout_marginLeft="20dp"
-		android:layout_marginBottom="5dp"
 		android:id="@+id/range_value"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginBottom="5dp"
+		android:layout_marginLeft="20dp"
 		android:paddingLeft="8dp"
-		android:text="unknown" />
+		android:text="@string/lbl_unknown" />
 		
 </LinearLayout>

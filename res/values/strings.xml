@@ -22,4 +22,16 @@
     <string name="sensor_desc_12">Relative ambient air humidity in percent.</string>
     <string name="sensor_desc_13">Ambient (room) temperature in degree
     Celsius.</string>
+    <string name="lbl_vendor">Vendor</string>
+    <string name="lbl_powerconsumption">Power consumption</string>
+    <string name="lbl_sensor_resolution">Sensor resolution</string>
+    <string name="lbl_sensor_version">Version</string>
+    <string name="lbl_min_delay">Minimal delay</string>
+    <string name="lbl_range">Range</string>
+    <string name="lbl_unknown">unknown</string>
+    <string name="apprater_title">Rate this app?</string>
+    <string name="apprater_message">Hi,\\nseems like you find this app useful. Would you consider rating it? This will only take a minute of your time, but encourages further development.</string>
+    <string name="apprater_positive">Sure!</string>
+    <string name="apprater_negative">No thanks</string>
+    <string name="apprater_neutral">Later</string>
 </resources>
