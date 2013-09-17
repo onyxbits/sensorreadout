@@ -22,7 +22,13 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name="ReadoutActivity" />
+		<activity
+			android:name="ReadoutActivity"
+			android:parentActivityName="de.onyxbits.sensorreadout.OverviewActivity" >
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="de.onyxbits.sensorreadout.OverviewActivity" />
+		</activity>
 	</application>
 
 </manifest>
