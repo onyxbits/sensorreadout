@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sensor Readout</string>
-    <string name="sensor_desc_1">Device acceleration affected by the force of gravity.</string>
+    <string name="sensor_desc_1">Device acceleration (affected by the force of gravity).</string>
     <string name="sensor_desc_2">Ambient magnetic field.</string>
     <string name="sensor_desc_3">Compass like sensor.</string>
     <string name="sensor_desc_4">Gyroscope.</string>
