@@ -110,9 +110,16 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
     chartView = ChartFactory.getLineChartView(this,sensorData,renderer);
     chartView.setOnTouchListener(this);
     float textSize = new TextView(this).getTextSize();
+    float upscale = textSize/renderer.getLegendTextSize();
     renderer.setLabelsTextSize(textSize);
     renderer.setLegendTextSize(textSize);
     renderer.setChartTitleTextSize(textSize);
+    renderer.setAxisTitleTextSize(textSize);
+    int[] margins=renderer.getMargins();
+    for (int i=0;i<margins.length;i++) {
+    	margins[i]*=upscale;
+    }
+    renderer.setMargins(margins);
     // Note: The chart is not ready to use yet! It still lacks some information, we can only
     // obtain from a SensorEvent, so its either sticking to only known sensors or defereing
     // the final setup till we get our hands on such an event. Design choice: Let's try to even
