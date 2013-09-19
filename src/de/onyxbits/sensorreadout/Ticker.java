@@ -16,13 +16,6 @@
 
 package de.onyxbits.sensorreadout;
 import android.hardware.*;
-import android.app.*;
-import android.os.*;
-
-import org.achartengine.*;
-import org.achartengine.chart.*;
-import org.achartengine.model.*;
-import org.achartengine.renderer.*;
 
 
 /**

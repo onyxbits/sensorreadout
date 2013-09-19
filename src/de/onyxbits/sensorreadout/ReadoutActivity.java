@@ -21,18 +21,14 @@ import android.os.Bundle;
 import android.widget.*;
 import android.view.*;
 import android.hardware.*;
-import java.util.*;
 import android.graphics.*;
 import android.content.*;
 import android.content.pm.*;
 import android.content.res.*;
-import android.os.*;
 
 import org.achartengine.*;
-import org.achartengine.chart.*;
 import org.achartengine.model.*;
 import org.achartengine.renderer.*;
-import org.achartengine.tools.*;
 
 /**
  * <code>Activity</code> that displays the readout of one <code>Sensor</code>.
@@ -108,7 +104,6 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		renderer.setGridColor(Color.DKGRAY);
 		renderer.setShowGrid(true);
 		renderer.setXAxisMin(0.0);
-		double[] range = { 1, 1, 1, 1 };
 		renderer.setXTitle("Samplerate: 1/" + (1000 / SAMPLERATE) + " ms");
 		renderer.setXAxisMax(10000 / (1000 / SAMPLERATE)); // 10 seconds wide
 		renderer.setXLabels(10); // 1 second per DIV
