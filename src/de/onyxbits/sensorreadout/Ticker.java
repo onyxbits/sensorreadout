@@ -37,17 +37,7 @@ class Ticker extends Thread implements SensorEventListener {
    * Reference to the worker thread which does the actual UI updating
    */
   private Ticker worker;
-  
-  /**
-   * For moving the viewport of the graph
-   */
-  private int xTick = 0;
-  
-  /**
-   * For moving the viewport of the grpah
-   */
-  private int lastMinX = 0; 
-  
+
   /**
    * How long to sleep between taking a sample
    */
@@ -96,52 +86,10 @@ class Ticker extends Thread implements SensorEventListener {
     else {
       // We are the worker -> update the UI
       if (currentEvent!=null) {
-        updateUI();
+        activity.onTick(currentEvent);
       }
     }
   }
   
-  private void updateUI() {
-    
-    if(activity.channel==null) {
-      // Dirty, but we only learn a few things after getting the first event.
-      activity.configure(currentEvent);
-    }
-    
-    if (xTick > activity.renderer.getXAxisMax()) {
-      activity.renderer.setXAxisMax(xTick);
-      activity.renderer.setXAxisMin(++lastMinX);
-    }
-    
-    activity.fitYAxis(currentEvent);
-    
-    for (int i=0;i<activity.channel.length;i++) {
-      if (activity.channel[i]!=null) {
-        activity.channel[i].add(xTick,currentEvent.values[i]);
-      }
-    }
-    
-    xTick++;
-
-    switch (currentEvent.accuracy) {
-      case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: {
-        activity.renderer.setChartTitle("Sensor accuracy: HIGH");
-        break;
-      }
-      case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM: {
-        activity.renderer.setChartTitle("Sensor accuracy: MEDIUM");
-        break;
-      }
-      case SensorManager.SENSOR_STATUS_ACCURACY_LOW: {
-        activity.renderer.setChartTitle("Sensor accuracy: LOW");
-        break;
-      }
-      default: {
-        activity.renderer.setChartTitle("Sensor accuracy: UNRELIABLE");
-        break;
-      }
-    }
-    activity.chartView.repaint();
-  }
   
 }

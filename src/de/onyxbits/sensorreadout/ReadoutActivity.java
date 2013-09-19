@@ -83,6 +83,18 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 	 * The ticker thread takes care of updating the UI
 	 */
 	private Thread ticker;
+	
+  
+  /**
+   * For moving the viewport of the graph
+   */
+  private int xTick = 0;
+  
+  /**
+   * For moving the viewport of the grpah
+   */
+  private int lastMinX = 0; 
+  
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -132,15 +144,177 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		setContentView(chartView);
 	}
 
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		// Lock the screen to its current rotation. Some sensors become impossible
+		// to read otherwise.
+		switch (getResources().getConfiguration().orientation) {
+			case Configuration.ORIENTATION_PORTRAIT: {
+				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				break;
+			}
+			case Configuration.ORIENTATION_LANDSCAPE: {
+				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+				break;
+			}
+		}
+
+		if (channel != null) {
+			for (XYSeries chan : channel) {
+				if (chan != null) {
+					chan.clear();
+				}
+			}
+		}
+
+		ticker = new Ticker(this);
+		ticker.start();
+		sensorManager.registerListener((SensorEventListener) ticker, sensor,
+				SensorManager.SENSOR_DELAY_UI);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		stopSampling();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.share: {
+				stopSampling();
+				new ExportTask(this).execute(sensorData);
+				break;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		// channel!=null -> need to ensure that configure() has been called before
+		// the user is
+		// allowed to abort (can happen by an accidental doubletap on app start).
+		// Otherwise the
+		// screen will just stay black, making the app appear to hang.
+		if (v == chartView && ticker != null && channel != null) {
+			// Design decission: When the user pans the view, s/he will (likely) no
+			// longer see the point of
+			// data entry. We might as well stop sampling then, since the user will
+			// (likely) not want to
+			// bother finding that point again if it is still moving.
+			// Follow up design decission: Stopping is final. We don't provide a
+			// resume option. Doing so would
+			// only add complexity to the code/app for the sole purpose of producing a
+			// faulty graph. If the user
+			// wants to continue, s/he has to return to the OverviewActivity and
+			// restart from there.
+			stopSampling();
+		}
+		return v.onTouchEvent(event);
+	}
+	
+	/**
+	 * Periodically called by the ticker
+	 * @param currentEvent current sensor data.
+	 */
+  protected void onTick(SensorEvent currentEvent) {
+    
+    if(xTick==0) {
+      // Dirty, but we only learn a few things after getting the first event.
+      configure(currentEvent);
+    }
+    
+    if (xTick > renderer.getXAxisMax()) {
+      renderer.setXAxisMax(xTick);
+      renderer.setXAxisMin(++lastMinX);
+    }
+    
+    fitYAxis(currentEvent);
+    
+    for (int i=0;i<channel.length;i++) {
+      if (channel[i]!=null) {
+        channel[i].add(xTick,currentEvent.values[i]);
+      }
+    }
+    
+    xTick++;
+
+    switch (currentEvent.accuracy) {
+      case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: {
+        renderer.setChartTitle("Sensor accuracy: HIGH");
+        break;
+      }
+      case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM: {
+        renderer.setChartTitle("Sensor accuracy: MEDIUM");
+        break;
+      }
+      case SensorManager.SENSOR_STATUS_ACCURACY_LOW: {
+        renderer.setChartTitle("Sensor accuracy: LOW");
+        break;
+      }
+      default: {
+        renderer.setChartTitle("Sensor accuracy: UNRELIABLE");
+        break;
+      }
+    }
+    chartView.repaint();
+  }
+
+	/**
+	 * Stop sampling
+	 */
+	private void stopSampling() {
+		try {
+			sensorManager.unregisterListener((SensorEventListener) ticker);
+			ticker.interrupt();
+			ticker.join();
+			ticker = null;
+			Toast.makeText(this, R.string.msg_stopped, Toast.LENGTH_SHORT).show();
+		}
+		catch (Exception e) {
+		}
+	}
+	
+	/**
+	 * Make sure the Y axis is large enough to display the graph
+	 * @param event current event
+	 */
+	private void fitYAxis(SensorEvent event) {
+		double min=renderer.getYAxisMin(), max=renderer.getYAxisMax();
+		for (int i=0;i<channel.length;i++) {
+			if (event.values[i]<min) {
+				min=event.values[i];
+			}
+			if (event.values[i]>max) {
+				max=event.values[i];
+			}
+		}
+		double half = 0;
+		if (channel.length==1 && xTick==0) {
+			// Sensors that only have one channel and only deliver a constant value
+			// without an external stimulus (e.g. proximity) don't provide enough
+			// data to grade the Y - axis and hence the graph would flatline on the
+			// X - axis. To remedy that we have to calculate bounds on the configuring
+			// event.
+			half = event.values[0] * 0.5 + 1;
+		}
+		renderer.setYAxisMax(max + half);
+		renderer.setYAxisMin(min - half);
+	}
+	
 	/**
 	 * Final configuration step. Must be called between receiving the first
-	 * <code>SensorEvent</code> and updating the graph for the first time. This is
-	 * done from the ticker thread.
+	 * <code>SensorEvent</code> and updating the graph for the first time.
 	 * 
 	 * @param event
 	 *          the event
 	 */
-	protected void configure(SensorEvent event) {
+	private void configure(SensorEvent event) {
 		String channelNames[] = { getString(R.string.x_axis),
 				getString(R.string.y_axis), getString(R.string.z_axis) }; // Defaults...
 		channel = new XYSeries[event.values.length]; // ..works for most sensors
@@ -222,118 +396,6 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 			r.setColor(colors[i % colors.length]);
 			renderer.addSeriesRenderer(r);
 		}
-
-		fitYAxis(event);
-	}
-	
-	/**
-	 * Make sure the Y axis is large enough to display the graph
-	 * @param event current event
-	 */
-	protected void fitYAxis(SensorEvent event) {
-		double min=renderer.getYAxisMin(), max=renderer.getYAxisMax();
-		for (int i=0;i<channel.length;i++) {
-			if (event.values[i]<min) {
-				min=event.values[i];
-			}
-			if (event.values[i]>max) {
-				max=event.values[i];
-			}
-		}
-		double half = 0;
-		if (channel.length==1 && sensorData.getSeries()[0].getItemCount()<2) {
-			// Sensors that only have one channel and only deliver a constant value
-			// without an external stimulus (e.g. proximity) don't provide enough
-			// data to grade the Y - axis and hence the graph would flatline on the
-			// X - axis. To remedy that we have to calculate bounds on the configuring
-			// event.
-			half = event.values[0] * 0.5 + 1;
-		}
-		renderer.setYAxisMax(max + half);
-		renderer.setYAxisMin(min - half);
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-
-		// Lock the screen to its current rotation. Some sensors become impossible
-		// to read otherwise.
-		switch (getResources().getConfiguration().orientation) {
-			case Configuration.ORIENTATION_PORTRAIT: {
-				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-				break;
-			}
-			case Configuration.ORIENTATION_LANDSCAPE: {
-				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-				break;
-			}
-		}
-
-		if (channel != null) {
-			for (XYSeries chan : channel) {
-				if (chan != null) {
-					chan.clear();
-				}
-			}
-		}
-
-		ticker = new Ticker(this);
-		ticker.start();
-		sensorManager.registerListener((SensorEventListener) ticker, sensor,
-				SensorManager.SENSOR_DELAY_UI);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		stopSampling();
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.share: {
-				stopSampling();
-				new ExportTask(this).execute(sensorData);
-				break;
-			}
-		}
-		return true;
-	}
-
-	// Interface: View.OnTouchListener
-	public boolean onTouch(View v, MotionEvent event) {
-		// channel!=null -> need to ensure that configure() has been called before
-		// the user is
-		// allowed to abort (can happen by an accidental doubletap on app start).
-		// Otherwise the
-		// screen will just stay black, making the app appear to hang.
-		if (v == chartView && ticker != null && channel != null) {
-			// Design decission: When the user pans the view, s/he will (likely) no
-			// longer see the point of
-			// data entry. We might as well stop sampling then, since the user will
-			// (likely) not want to
-			// bother finding that point again if it is still moving.
-			// Follow up design decission: Stopping is final. We don't provide a
-			// resume option. Doing so would
-			// only add complexity to the code/app for the sole purpose of producing a
-			// faulty graph. If the user
-			// wants to continue, s/he has to return to the OverviewActivity and
-			// restart from there.
-			stopSampling();
-		}
-		return v.onTouchEvent(event);
-	}
-
-	private void stopSampling() {
-		try {
-			sensorManager.unregisterListener((SensorEventListener) ticker);
-			ticker.interrupt();
-			ticker.join();
-			ticker = null;
-			Toast.makeText(this, R.string.msg_stopped, Toast.LENGTH_SHORT).show();
-		}
-		catch (Exception e) {
-		}
-	}
 }
