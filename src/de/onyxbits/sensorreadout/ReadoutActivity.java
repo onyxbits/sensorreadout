@@ -22,7 +22,6 @@ import android.widget.*;
 import android.view.*;
 import android.hardware.*;
 import android.graphics.*;
-import android.content.*;
 import android.content.pm.*;
 import android.content.res.*;
 
@@ -94,6 +93,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_PROGRESS);
 		sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		int idx = getIntent().getIntExtra(SENSORINDEX, 0);
 		sensor = sensorManager.getSensorList(Sensor.TYPE_ALL).get(idx);
@@ -294,29 +294,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		switch (item.getItemId()) {
 			case R.id.share: {
 				stopSampling();
-				StringBuilder sb = new StringBuilder();
-				XYSeries series[] = sensorData.getSeries();
-				int samples = series[0].getItemCount();
-				for (int i = 0; i < samples; i++) {
-					sb.append(i);
-					sb.append(", ");
-					sb.append(series[0].getY(i));
-					if (series.length > 1) {
-						sb.append(", ");
-						sb.append(series[1].getY(i));
-						if (series.length > 2) {
-							sb.append(", ");
-							sb.append(series[2].getY(i));
-						}
-					}
-					sb.append("\n");
-				}
-				Intent sendIntent = new Intent();
-				sendIntent.setAction(Intent.ACTION_SEND);
-				sendIntent.putExtra(Intent.EXTRA_TEXT, sb.toString());
-				sendIntent.setType("text/plain");
-				startActivity(Intent.createChooser(sendIntent,
-						getResources().getText(R.string.send_to)));
+				new ExportTask(this).execute(sensorData);
 				break;
 			}
 		}
