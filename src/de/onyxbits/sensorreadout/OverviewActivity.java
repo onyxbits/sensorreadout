@@ -56,10 +56,10 @@ DialogInterface.OnClickListener  {
     LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
     View layout = inflater.inflate(R.layout.verbose,null);
     ((TextView)layout.findViewById(R.id.vendor_value)).setText(sensor.getVendor());
-    ((TextView)layout.findViewById(R.id.power_value)).setText(sensor.getPower()+" mA");
+    ((TextView)layout.findViewById(R.id.power_value)).setText(sensor.getPower()+getString(R.string.unit_consumption));
     ((TextView)layout.findViewById(R.id.resolution_value)).setText(sensor.getResolution()+"");
     ((TextView)layout.findViewById(R.id.version_value)).setText(sensor.getVersion()+"");
-    ((TextView)layout.findViewById(R.id.delay_value)).setText(sensor.getMinDelay()+" µS");
+    ((TextView)layout.findViewById(R.id.delay_value)).setText(sensor.getMinDelay()+getString(R.string.unit_mindelay));
     ((TextView)layout.findViewById(R.id.range_value)).setText(sensor.getMaximumRange()+"");
     ScrollView scrollView = new ScrollView(this);
     scrollView.addView(layout);

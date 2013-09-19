@@ -114,7 +114,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		renderer.setGridColor(Color.DKGRAY);
 		renderer.setShowGrid(true);
 		renderer.setXAxisMin(0.0);
-		renderer.setXTitle("Samplerate: 1/" + (1000 / SAMPLERATE) + " ms");
+		renderer.setXTitle(getString(R.string.samplerate,1000 / SAMPLERATE));
 		renderer.setXAxisMax(10000 / (1000 / SAMPLERATE)); // 10 seconds wide
 		renderer.setXLabels(10); // 1 second per DIV
 		renderer.setChartTitle(" ");
@@ -239,19 +239,19 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 
 		switch (currentEvent.accuracy) {
 			case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: {
-				renderer.setChartTitle("Sensor accuracy: HIGH");
+				renderer.setChartTitle(getString(R.string.sensor_accuracy_high));
 				break;
 			}
 			case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM: {
-				renderer.setChartTitle("Sensor accuracy: MEDIUM");
+				renderer.setChartTitle(getString(R.string.sensor_accuracy_medium));
 				break;
 			}
 			case SensorManager.SENSOR_STATUS_ACCURACY_LOW: {
-				renderer.setChartTitle("Sensor accuracy: LOW");
+				renderer.setChartTitle(getString(R.string.sensor_accuracy_low));
 				break;
 			}
 			default: {
-				renderer.setChartTitle("Sensor accuracy: UNRELIABLE");
+				renderer.setChartTitle(getString(R.string.sensor_accuracy_unreliable));
 				break;
 			}
 		}
@@ -310,49 +310,49 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 	 *          the event
 	 */
 	private void configure(SensorEvent event) {
-		String channelNames[] = { getString(R.string.x_axis),
-				getString(R.string.y_axis), getString(R.string.z_axis) }; // Defaults...
+		String channelNames[] = { getString(R.string.channel_x_axis),
+				getString(R.string.channel_y_axis), getString(R.string.channel_z_axis) }; // Defaults...
 		channel = new XYSeries[event.values.length]; // ..works for most sensors
 
 		switch (event.sensor.getType()) {
 			case Sensor.TYPE_ACCELEROMETER: {
-				renderer.setYTitle("m/s²");
+				renderer.setYTitle(getString(R.string.unit_acceleration));
 				break;
 			}
 			case Sensor.TYPE_GRAVITY: {
 				channel = new XYSeries[event.values.length];
-				renderer.setYTitle("m/s²");
+				renderer.setYTitle(getString(R.string.unit_acceleration));
 				break;
 			}
 			case Sensor.TYPE_GYROSCOPE: {
 				channel = new XYSeries[event.values.length];
-				renderer.setYTitle("rad/s");
+				renderer.setYTitle(getString(R.string.unit_gyro));
 				break;
 			}
 			case Sensor.TYPE_LIGHT: {
 				channel = new XYSeries[1];
 				channelNames = new String[1];
-				channelNames[0] = "Light";
-				renderer.setYTitle("lux");
+				channelNames[0] = getString(R.string.channel_light);
+				renderer.setYTitle(getString(R.string.unit_light));
 				break;
 			}
 			case Sensor.TYPE_LINEAR_ACCELERATION: {
-				renderer.setYTitle("m/s²");
+				renderer.setYTitle(getString(R.string.unit_acceleration));
 				break;
 			}
 			case Sensor.TYPE_MAGNETIC_FIELD: {
-				renderer.setYTitle("µT");
+				renderer.setYTitle(getString(R.string.unit_magnetic));
 				break;
 			}
 			case Sensor.TYPE_PRESSURE: {
-				renderer.setYTitle("hPa");
+				renderer.setYTitle(getString(R.string.unit_pressure));
 				break;
 			}
 			case Sensor.TYPE_PROXIMITY: {
 				channel = new XYSeries[1];
 				channelNames = new String[1];
-				channelNames[0] = "Distance";
-				renderer.setYTitle("cm");
+				channelNames[0] = getString(R.string.channel_distance);
+				renderer.setYTitle(getString(R.string.unit_distance));
 				break;
 			}
 			case Sensor.TYPE_ROTATION_VECTOR: {
@@ -368,10 +368,10 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 				// using the numeric instead of the symbolic constants, we can easily
 				// compile for pre- and
 				// post API level 14.
-				renderer.setYTitle("°C");
+				renderer.setYTitle(getString(R.string.unit_temperature));
 				channel = new XYSeries[1];
 				channelNames = new String[1];
-				channelNames[0] = "Ambient room temperature";
+				channelNames[0] = getString(R.string.channel_temperature);
 				break;
 			}
 
@@ -379,7 +379,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 				// Unknown sensor -> Just show all the channels.
 				channel = new XYSeries[event.values.length];
 				for (int i = 0; i < channelNames.length; i++)
-					channelNames[i] = "Channel" + i;
+					channelNames[i] = getString(R.string.channel_default) + i;
 			}
 		}
 
