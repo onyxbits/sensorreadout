@@ -56,7 +56,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 	/**
 	 * The displaying component
 	 */
-	protected GraphicalView chartView;
+	private GraphicalView chartView;
 
 	/**
 	 * Dataset of the graphing component
@@ -66,7 +66,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 	/**
 	 * Renderer for actually drawing the graph
 	 */
-	protected XYMultipleSeriesRenderer renderer;
+	private XYMultipleSeriesRenderer renderer;
 
 	/**
 	 * Our <code>SensorManager</code>
@@ -77,7 +77,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 	 * Data channels. Corresponds to <code>SensorEvent.values</code>. Individual
 	 * channels may be set to null to indicate that they must not be painted.
 	 */
-	protected XYSeries channel[];
+	private XYSeries channel[];
 
 	/**
 	 * The ticker thread takes care of updating the UI
@@ -188,22 +188,18 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		// channel!=null -> need to ensure that configure() has been called before
-		// the user is
-		// allowed to abort (can happen by an accidental doubletap on app start).
-		// Otherwise the
-		// screen will just stay black, making the app appear to hang.
+		// the user is allowed to abort (can happen by an accidental doubletap on 
+		// app start). Otherwise the screen will just stay black, making the app 
+		// appear to hang.
 		if (v == chartView && ticker != null && channel != null) {
-			// Design decission: When the user pans the view, s/he will (likely) no
-			// longer see the point of
-			// data entry. We might as well stop sampling then, since the user will
-			// (likely) not want to
-			// bother finding that point again if it is still moving.
-			// Follow up design decission: Stopping is final. We don't provide a
-			// resume option. Doing so would
-			// only add complexity to the code/app for the sole purpose of producing a
-			// faulty graph. If the user
-			// wants to continue, s/he has to return to the OverviewActivity and
-			// restart from there.
+			// Design decision: When the user pans the view, s/he will (likely) no
+			// longer see the point of data entry. We might as well stop sampling 
+			// then, since the user will (likely) not want to bother finding that 
+			// point again if it is still moving. Follow up design decision: Stopping 
+			// is final. We don't provide a resume option. Doing so would only add 
+			// complexity to the code/app for the sole purpose of producing a faulty 
+			// graph. If the user wants to continue, s/he has to return to the 
+			// OverviewActivity and restart from there.
 			stopSampling();
 		}
 		return v.onTouchEvent(event);

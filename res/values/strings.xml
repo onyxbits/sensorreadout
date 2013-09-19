@@ -27,7 +27,7 @@
 	<string name="apprater_positive">Sure!</string>
 	<string name="apprater_negative">No thanks</string>
 	<string name="apprater_neutral">Later</string>
-	<string name="msg_stopped">Stopped sampling</string>
+	<string name="msg_stopped">Sampling stopped</string>
 	<string name="share">Share</string>
 	<string name="send_to">Share with</string>
 	<string name="unit_gyro">rad/s</string>
