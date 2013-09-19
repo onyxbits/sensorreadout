@@ -28,8 +28,7 @@ import android.net.*;
  * Main <code>Activity</code>. Shows a list of all available <code>Sensor</code>S and
  * starts the <code>ReadoutActivity</code> of the selected <code>Sensor</code>
  */
-public class OverviewActivity extends ListActivity implements AdapterView.OnItemLongClickListener,
-DialogInterface.OnClickListener  {
+public class OverviewActivity extends ListActivity implements AdapterView.OnItemLongClickListener {
 
   /** Called when the activity is first created. */
   @Override
@@ -85,8 +84,21 @@ DialogInterface.OnClickListener  {
     return true;
   }
   
-  public void onClick(DialogInterface di, int id) {
-    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.onyxbits.de"));
-    startActivity(browserIntent);
-  }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.overview, menu);
+		return true;
+	}
+  
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.visit_website: {
+		    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.homepage)));
+		    startActivity(browserIntent);
+				break;
+			}
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }

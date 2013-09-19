@@ -51,5 +51,7 @@
 	<string name="samplerate">Samplerate: 1/%1$d ms</string>
 	<string name="unit_consumption">" mA"</string>
 	<string name="unit_mindelay">" µs"</string>
+	<string name="homepage">http://www.onyxbits.de/sensorreadout</string>
+	<string name="visit_website">Visit website</string>
 
 </resources>
