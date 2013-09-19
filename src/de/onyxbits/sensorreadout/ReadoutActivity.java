@@ -191,7 +191,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 				break;
 			}
 		}
-		return true;
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
