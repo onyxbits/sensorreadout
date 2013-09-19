@@ -83,18 +83,16 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 	 * The ticker thread takes care of updating the UI
 	 */
 	private Thread ticker;
-	
-  
-  /**
-   * For moving the viewport of the graph
-   */
-  private int xTick = 0;
-  
-  /**
-   * For moving the viewport of the grpah
-   */
-  private int lastMinX = 0; 
-  
+
+	/**
+	 * For moving the viewport of the graph
+	 */
+	private int xTick = 0;
+
+	/**
+	 * For moving the viewport of the grpah
+	 */
+	private int lastMinX = 0;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -144,7 +142,6 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		setContentView(chartView);
 	}
 
-	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -162,18 +159,12 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 			}
 		}
 
-		if (channel != null) {
-			for (XYSeries chan : channel) {
-				if (chan != null) {
-					chan.clear();
-				}
-			}
+		if (xTick == 0) {
+			ticker = new Ticker(this);
+			ticker.start();
+			sensorManager.registerListener((SensorEventListener) ticker, sensor,
+					SensorManager.SENSOR_DELAY_UI);
 		}
-
-		ticker = new Ticker(this);
-		ticker.start();
-		sensorManager.registerListener((SensorEventListener) ticker, sensor,
-				SensorManager.SENSOR_DELAY_UI);
 	}
 
 	@Override
@@ -217,53 +208,55 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		}
 		return v.onTouchEvent(event);
 	}
-	
+
 	/**
 	 * Periodically called by the ticker
-	 * @param currentEvent current sensor data.
+	 * 
+	 * @param currentEvent
+	 *          current sensor data.
 	 */
-  protected void onTick(SensorEvent currentEvent) {
-    
-    if(xTick==0) {
-      // Dirty, but we only learn a few things after getting the first event.
-      configure(currentEvent);
-    }
-    
-    if (xTick > renderer.getXAxisMax()) {
-      renderer.setXAxisMax(xTick);
-      renderer.setXAxisMin(++lastMinX);
-    }
-    
-    fitYAxis(currentEvent);
-    
-    for (int i=0;i<channel.length;i++) {
-      if (channel[i]!=null) {
-        channel[i].add(xTick,currentEvent.values[i]);
-      }
-    }
-    
-    xTick++;
+	protected void onTick(SensorEvent currentEvent) {
 
-    switch (currentEvent.accuracy) {
-      case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: {
-        renderer.setChartTitle("Sensor accuracy: HIGH");
-        break;
-      }
-      case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM: {
-        renderer.setChartTitle("Sensor accuracy: MEDIUM");
-        break;
-      }
-      case SensorManager.SENSOR_STATUS_ACCURACY_LOW: {
-        renderer.setChartTitle("Sensor accuracy: LOW");
-        break;
-      }
-      default: {
-        renderer.setChartTitle("Sensor accuracy: UNRELIABLE");
-        break;
-      }
-    }
-    chartView.repaint();
-  }
+		if (xTick == 0) {
+			// Dirty, but we only learn a few things after getting the first event.
+			configure(currentEvent);
+		}
+
+		if (xTick > renderer.getXAxisMax()) {
+			renderer.setXAxisMax(xTick);
+			renderer.setXAxisMin(++lastMinX);
+		}
+
+		fitYAxis(currentEvent);
+
+		for (int i = 0; i < channel.length; i++) {
+			if (channel[i] != null) {
+				channel[i].add(xTick, currentEvent.values[i]);
+			}
+		}
+
+		xTick++;
+
+		switch (currentEvent.accuracy) {
+			case SensorManager.SENSOR_STATUS_ACCURACY_HIGH: {
+				renderer.setChartTitle("Sensor accuracy: HIGH");
+				break;
+			}
+			case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM: {
+				renderer.setChartTitle("Sensor accuracy: MEDIUM");
+				break;
+			}
+			case SensorManager.SENSOR_STATUS_ACCURACY_LOW: {
+				renderer.setChartTitle("Sensor accuracy: LOW");
+				break;
+			}
+			default: {
+				renderer.setChartTitle("Sensor accuracy: UNRELIABLE");
+				break;
+			}
+		}
+		chartView.repaint();
+	}
 
 	/**
 	 * Stop sampling
@@ -279,23 +272,25 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		catch (Exception e) {
 		}
 	}
-	
+
 	/**
 	 * Make sure the Y axis is large enough to display the graph
-	 * @param event current event
+	 * 
+	 * @param event
+	 *          current event
 	 */
 	private void fitYAxis(SensorEvent event) {
-		double min=renderer.getYAxisMin(), max=renderer.getYAxisMax();
-		for (int i=0;i<channel.length;i++) {
-			if (event.values[i]<min) {
-				min=event.values[i];
+		double min = renderer.getYAxisMin(), max = renderer.getYAxisMax();
+		for (int i = 0; i < channel.length; i++) {
+			if (event.values[i] < min) {
+				min = event.values[i];
 			}
-			if (event.values[i]>max) {
-				max=event.values[i];
+			if (event.values[i] > max) {
+				max = event.values[i];
 			}
 		}
 		double half = 0;
-		if (channel.length==1 && xTick==0) {
+		if (channel.length == 1 && xTick == 0) {
 			// Sensors that only have one channel and only deliver a constant value
 			// without an external stimulus (e.g. proximity) don't provide enough
 			// data to grade the Y - axis and hence the graph would flatline on the
@@ -306,7 +301,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		renderer.setYAxisMax(max + half);
 		renderer.setYAxisMin(min - half);
 	}
-	
+
 	/**
 	 * Final configuration step. Must be called between receiving the first
 	 * <code>SensorEvent</code> and updating the graph for the first time.
