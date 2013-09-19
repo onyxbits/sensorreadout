@@ -27,4 +27,9 @@
     <string name="apprater_negative">No thanks</string>
     <string name="apprater_neutral">Later</string>
     <string name="msg_stopped">Stopped sampling</string>
+    <string name="share">Share</string>
+    <string name="send_to">Share with</string>
+    <string name="x_axis">X-Axis</string>
+    <string name="y_axis">Y-Axis</string>
+    <string name="z_axis">Z-Axis</string>
 </resources>

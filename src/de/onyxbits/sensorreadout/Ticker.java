@@ -119,7 +119,9 @@ class Ticker extends Thread implements SensorEventListener {
       activity.renderer.setXAxisMax(xTick);
       activity.renderer.setXAxisMin(++lastMinX);
     }
-
+    
+    activity.fitYAxis(currentEvent);
+    
     for (int i=0;i<activity.channel.length;i++) {
       if (activity.channel[i]!=null) {
         activity.channel[i].add(xTick,currentEvent.values[i]);
