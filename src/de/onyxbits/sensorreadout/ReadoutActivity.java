@@ -127,10 +127,11 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		renderer.setLegendTextSize(textSize);
 		renderer.setChartTitleTextSize(textSize);
 		renderer.setAxisTitleTextSize(textSize);
+		renderer.setFitLegend(true);
 		int[] margins = renderer.getMargins();
-		for (int i = 0; i < margins.length; i++) {
-			margins[i] *= upscale;
-		}
+		margins[0] *= upscale;
+		margins[1] *= upscale;
+		margins[2] = (int) (2*renderer.getLegendTextSize());
 		renderer.setMargins(margins);
 		setContentView(R.layout.readout_pending);
 	}
