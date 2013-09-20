@@ -57,5 +57,6 @@
 	<string name="unit_mindelay">" µs"</string>
 	<string name="homepage">http://www.onyxbits.de/sensorreadout</string>
 	<string name="visit_website">Visit website</string>
+	<string name="msg_waiting_for_sensor">Waiting for sensor to become ready</string>
 
 </resources>

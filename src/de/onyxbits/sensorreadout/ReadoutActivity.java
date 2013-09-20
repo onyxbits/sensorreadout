@@ -132,14 +132,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 			margins[i] *= upscale;
 		}
 		renderer.setMargins(margins);
-		// Note: The chart is not ready to use yet! It still lacks some information,
-		// we can only
-		// obtain from a SensorEvent, so its either sticking to only known sensors
-		// or defereing
-		// the final setup till we get our hands on such an event. Design choice:
-		// Let's try to even
-		// handle unknown sensors as good as we can.
-		setContentView(chartView);
+		setContentView(R.layout.readout_pending);
 	}
 
 	@Override
@@ -216,6 +209,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		if (xTick == 0) {
 			// Dirty, but we only learn a few things after getting the first event.
 			configure(currentEvent);
+			setContentView(chartView);
 		}
 
 		if (xTick > renderer.getXAxisMax()) {
