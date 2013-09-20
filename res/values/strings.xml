@@ -48,6 +48,9 @@
 	<string name="channel_x_axis">X-Axis</string>
 	<string name="channel_y_axis">Y-Axis</string>
 	<string name="channel_z_axis">Z-Axis</string>
+	<string name="channel_azimuth">Azimuth</string>
+	<string name="channel_pitch">Pitch</string>
+	<string name="channel_roll">Roll</string>
 	<string name="channel_default">Channel</string>
 	<string name="samplerate">Samplerate: 1/%1$d ms</string>
 	<string name="unit_consumption">" mA"</string>

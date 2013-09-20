@@ -376,6 +376,9 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 				break;
 			}
 			case Sensor.TYPE_ORIENTATION: {
+				channelNames[0]=getString(R.string.channel_azimuth);
+				channelNames[1]=getString(R.string.channel_pitch);
+				channelNames[2]=getString(R.string.channel_roll);
 				break;
 			}
 			case 7:
