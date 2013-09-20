@@ -114,7 +114,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		renderer.setGridColor(Color.DKGRAY);
 		renderer.setShowGrid(true);
 		renderer.setXAxisMin(0.0);
-		renderer.setXTitle(getString(R.string.samplerate,1000 / SAMPLERATE));
+		renderer.setXTitle(getString(R.string.samplerate, 1000 / SAMPLERATE));
 		renderer.setXAxisMax(10000 / (1000 / SAMPLERATE)); // 10 seconds wide
 		renderer.setXLabels(10); // 1 second per DIV
 		renderer.setChartTitle(" ");
@@ -188,17 +188,17 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		// channel!=null -> need to ensure that configure() has been called before
-		// the user is allowed to abort (can happen by an accidental doubletap on 
-		// app start). Otherwise the screen will just stay black, making the app 
+		// the user is allowed to abort (can happen by an accidental doubletap on
+		// app start). Otherwise the screen will just stay black, making the app
 		// appear to hang.
 		if (v == chartView && ticker != null && channel != null) {
 			// Design decision: When the user pans the view, s/he will (likely) no
-			// longer see the point of data entry. We might as well stop sampling 
-			// then, since the user will (likely) not want to bother finding that 
-			// point again if it is still moving. Follow up design decision: Stopping 
-			// is final. We don't provide a resume option. Doing so would only add 
-			// complexity to the code/app for the sole purpose of producing a faulty 
-			// graph. If the user wants to continue, s/he has to return to the 
+			// longer see the point of data entry. We might as well stop sampling
+			// then, since the user will (likely) not want to bother finding that
+			// point again if it is still moving. Follow up design decision: Stopping
+			// is final. We don't provide a resume option. Doing so would only add
+			// complexity to the code/app for the sole purpose of producing a faulty
+			// graph. If the user wants to continue, s/he has to return to the
 			// OverviewActivity and restart from there.
 			stopSampling();
 		}
@@ -285,13 +285,16 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 				max = event.values[i];
 			}
 		}
+		float sum = 0;
+		for (int i = 0; i < event.values.length; i++) {
+			sum += event.values[i];
+		}
 		double half = 0;
-		if (channel.length == 1 && xTick == 0) {
-			// Sensors that only have one channel and only deliver a constant value
-			// without an external stimulus (e.g. proximity) don't provide enough
-			// data to grade the Y - axis and hence the graph would flatline on the
-			// X - axis. To remedy that we have to calculate bounds on the configuring
-			// event.
+		if (xTick == 0 && sum == event.values[0] * event.values.length) {
+			// If the plot flatlines on the first event, we can't grade the Y axis.
+			// This is especially bad if the sensor does not change without a
+			// stimulus. the graph will then flatline on the x-axis where it is 
+			// impossible to be seen.
 			half = event.values[0] * 0.5 + 1;
 		}
 		renderer.setYAxisMax(max + half);
@@ -306,52 +309,70 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 	 *          the event
 	 */
 	private void configure(SensorEvent event) {
-		String channelNames[] = { getString(R.string.channel_x_axis),
-				getString(R.string.channel_y_axis), getString(R.string.channel_z_axis) }; // Defaults...
-		channel = new XYSeries[event.values.length]; // ..works for most sensors
+		String[] channelNames = new String[event.values.length];
+		channel = new XYSeries[event.values.length];
+		for (int i = 0; i < channelNames.length; i++) {
+			channelNames[i] = getString(R.string.channel_default) + i;
+		}
 
 		switch (event.sensor.getType()) {
 			case Sensor.TYPE_ACCELEROMETER: {
+				channelNames[0]=getString(R.string.channel_x_axis);
+				channelNames[1]=getString(R.string.channel_y_axis);
+				channelNames[2]=getString(R.string.channel_z_axis);
 				renderer.setYTitle(getString(R.string.unit_acceleration));
 				break;
 			}
 			case Sensor.TYPE_GRAVITY: {
-				channel = new XYSeries[event.values.length];
+				channelNames[0]=getString(R.string.channel_x_axis);
+				channelNames[1]=getString(R.string.channel_y_axis);
+				channelNames[2]=getString(R.string.channel_z_axis);
 				renderer.setYTitle(getString(R.string.unit_acceleration));
 				break;
 			}
 			case Sensor.TYPE_GYROSCOPE: {
-				channel = new XYSeries[event.values.length];
+				channelNames[0]=getString(R.string.channel_x_axis);
+				channelNames[1]=getString(R.string.channel_y_axis);
+				channelNames[2]=getString(R.string.channel_z_axis);
 				renderer.setYTitle(getString(R.string.unit_gyro));
 				break;
 			}
 			case Sensor.TYPE_LIGHT: {
 				channel = new XYSeries[1];
-				channelNames = new String[1];
-				channelNames[0] = getString(R.string.channel_light);
+				channelNames[0]=getString(R.string.channel_light);
 				renderer.setYTitle(getString(R.string.unit_light));
 				break;
 			}
 			case Sensor.TYPE_LINEAR_ACCELERATION: {
+				channelNames[0]=getString(R.string.channel_x_axis);
+				channelNames[1]=getString(R.string.channel_y_axis);
+				channelNames[2]=getString(R.string.channel_z_axis);
 				renderer.setYTitle(getString(R.string.unit_acceleration));
 				break;
 			}
 			case Sensor.TYPE_MAGNETIC_FIELD: {
+				channelNames[0]=getString(R.string.channel_x_axis);
+				channelNames[1]=getString(R.string.channel_y_axis);
+				channelNames[2]=getString(R.string.channel_z_axis);
 				renderer.setYTitle(getString(R.string.unit_magnetic));
 				break;
 			}
 			case Sensor.TYPE_PRESSURE: {
+				channel = new XYSeries[1];
+				channelNames[0]=getString(R.string.channel_pressure);
 				renderer.setYTitle(getString(R.string.unit_pressure));
 				break;
 			}
 			case Sensor.TYPE_PROXIMITY: {
 				channel = new XYSeries[1];
-				channelNames = new String[1];
-				channelNames[0] = getString(R.string.channel_distance);
+				channelNames[0]=getString(R.string.channel_distance);
 				renderer.setYTitle(getString(R.string.unit_distance));
 				break;
 			}
 			case Sensor.TYPE_ROTATION_VECTOR: {
+				channelNames[0]=getString(R.string.channel_x_axis);
+				channelNames[1]=getString(R.string.channel_y_axis);
+				channelNames[2]=getString(R.string.channel_z_axis);
 				break;
 			}
 			case Sensor.TYPE_ORIENTATION: {
@@ -365,21 +386,12 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 				// compile for pre- and
 				// post API level 14.
 				renderer.setYTitle(getString(R.string.unit_temperature));
-				channel = new XYSeries[1];
-				channelNames = new String[1];
-				channelNames[0] = getString(R.string.channel_temperature);
 				break;
-			}
-
-			default: {
-				// Unknown sensor -> Just show all the channels.
-				channel = new XYSeries[event.values.length];
-				for (int i = 0; i < channelNames.length; i++)
-					channelNames[i] = getString(R.string.channel_default) + i;
 			}
 		}
 
-		int[] colors = { Color.RED, Color.YELLOW, Color.BLUE, Color.GREEN };
+		int[] colors = { Color.RED, Color.YELLOW, Color.BLUE, Color.GREEN,
+				Color.MAGENTA, Color.CYAN };
 		for (int i = 0; i < channel.length; i++) {
 			channel[i] = new XYSeries(channelNames[i]);
 			sensorData.addSeries(channel[i]);

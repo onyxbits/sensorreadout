@@ -43,6 +43,7 @@
 	<string name="sensor_accuracy_unreliable">Sensor accuracy: UNRELIABLE</string>
 	<string name="channel_light">Light</string>
 	<string name="channel_distance">Distance</string>
+	<string name="channel_pressure">Pressure</string>
 	<string name="channel_temperature">Ambient room temperature</string>
 	<string name="channel_x_axis">X-Axis</string>
 	<string name="channel_y_axis">Y-Axis</string>
