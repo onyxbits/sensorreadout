@@ -1,5 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/visit_website" android:title="@string/visit_website"></item>
+    <item android:id="@+id/faq" android:title="@string/faq" android:showAsAction="ifRoom|withText" android:icon="@drawable/ic_action_info"></item>
+    <item android:id="@+id/plug" android:title="@string/plug" android:icon="@drawable/ic_action_plug" android:showAsAction="ifRoom|withText"></item>
     
 
 </menu>

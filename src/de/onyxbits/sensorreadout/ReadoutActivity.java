@@ -17,11 +17,14 @@
 package de.onyxbits.sensorreadout;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.*;
 import android.view.*;
 import android.hardware.*;
 import android.graphics.*;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.content.pm.*;
 import android.content.res.*;
 
@@ -131,7 +134,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		int[] margins = renderer.getMargins();
 		margins[0] *= upscale;
 		margins[1] *= upscale;
-		margins[2] = (int) (2*renderer.getLegendTextSize());
+		margins[2] = (int) (2 * renderer.getLegendTextSize());
 		renderer.setMargins(margins);
 		setContentView(R.layout.readout_pending);
 	}
@@ -173,6 +176,18 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 			case R.id.share: {
 				stopSampling();
 				new ExportTask(this).execute(sensorData);
+				break;
+			}
+			case R.id.info: {
+				stopSampling();
+				try {
+					Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+							Uri.parse(getString(R.string.homepage_sensor,sensor.getType())));
+					startActivity(browserIntent);
+				}
+				catch (ActivityNotFoundException e) {
+					Toast.makeText(this,R.string.no_webbrowser_installed,Toast.LENGTH_SHORT).show();
+				}
 				break;
 			}
 		}
@@ -288,7 +303,7 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 		if (xTick == 0 && sum == event.values[0] * event.values.length) {
 			// If the plot flatlines on the first event, we can't grade the Y axis.
 			// This is especially bad if the sensor does not change without a
-			// stimulus. the graph will then flatline on the x-axis where it is 
+			// stimulus. the graph will then flatline on the x-axis where it is
 			// impossible to be seen.
 			half = event.values[0] * 0.5 + 1;
 		}
@@ -312,68 +327,68 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 
 		switch (event.sensor.getType()) {
 			case Sensor.TYPE_ACCELEROMETER: {
-				channelNames[0]=getString(R.string.channel_x_axis);
-				channelNames[1]=getString(R.string.channel_y_axis);
-				channelNames[2]=getString(R.string.channel_z_axis);
+				channelNames[0] = getString(R.string.channel_x_axis);
+				channelNames[1] = getString(R.string.channel_y_axis);
+				channelNames[2] = getString(R.string.channel_z_axis);
 				renderer.setYTitle(getString(R.string.unit_acceleration));
 				break;
 			}
 			case Sensor.TYPE_GRAVITY: {
-				channelNames[0]=getString(R.string.channel_x_axis);
-				channelNames[1]=getString(R.string.channel_y_axis);
-				channelNames[2]=getString(R.string.channel_z_axis);
+				channelNames[0] = getString(R.string.channel_x_axis);
+				channelNames[1] = getString(R.string.channel_y_axis);
+				channelNames[2] = getString(R.string.channel_z_axis);
 				renderer.setYTitle(getString(R.string.unit_acceleration));
 				break;
 			}
 			case Sensor.TYPE_GYROSCOPE: {
-				channelNames[0]=getString(R.string.channel_x_axis);
-				channelNames[1]=getString(R.string.channel_y_axis);
-				channelNames[2]=getString(R.string.channel_z_axis);
+				channelNames[0] = getString(R.string.channel_x_axis);
+				channelNames[1] = getString(R.string.channel_y_axis);
+				channelNames[2] = getString(R.string.channel_z_axis);
 				renderer.setYTitle(getString(R.string.unit_gyro));
 				break;
 			}
 			case Sensor.TYPE_LIGHT: {
 				channel = new XYSeries[1];
-				channelNames[0]=getString(R.string.channel_light);
+				channelNames[0] = getString(R.string.channel_light);
 				renderer.setYTitle(getString(R.string.unit_light));
 				break;
 			}
 			case Sensor.TYPE_LINEAR_ACCELERATION: {
-				channelNames[0]=getString(R.string.channel_x_axis);
-				channelNames[1]=getString(R.string.channel_y_axis);
-				channelNames[2]=getString(R.string.channel_z_axis);
+				channelNames[0] = getString(R.string.channel_x_axis);
+				channelNames[1] = getString(R.string.channel_y_axis);
+				channelNames[2] = getString(R.string.channel_z_axis);
 				renderer.setYTitle(getString(R.string.unit_acceleration));
 				break;
 			}
 			case Sensor.TYPE_MAGNETIC_FIELD: {
-				channelNames[0]=getString(R.string.channel_x_axis);
-				channelNames[1]=getString(R.string.channel_y_axis);
-				channelNames[2]=getString(R.string.channel_z_axis);
+				channelNames[0] = getString(R.string.channel_x_axis);
+				channelNames[1] = getString(R.string.channel_y_axis);
+				channelNames[2] = getString(R.string.channel_z_axis);
 				renderer.setYTitle(getString(R.string.unit_magnetic));
 				break;
 			}
 			case Sensor.TYPE_PRESSURE: {
 				channel = new XYSeries[1];
-				channelNames[0]=getString(R.string.channel_pressure);
+				channelNames[0] = getString(R.string.channel_pressure);
 				renderer.setYTitle(getString(R.string.unit_pressure));
 				break;
 			}
 			case Sensor.TYPE_PROXIMITY: {
 				channel = new XYSeries[1];
-				channelNames[0]=getString(R.string.channel_distance);
+				channelNames[0] = getString(R.string.channel_distance);
 				renderer.setYTitle(getString(R.string.unit_distance));
 				break;
 			}
 			case Sensor.TYPE_ROTATION_VECTOR: {
-				channelNames[0]=getString(R.string.channel_x_axis);
-				channelNames[1]=getString(R.string.channel_y_axis);
-				channelNames[2]=getString(R.string.channel_z_axis);
+				channelNames[0] = getString(R.string.channel_x_axis);
+				channelNames[1] = getString(R.string.channel_y_axis);
+				channelNames[2] = getString(R.string.channel_z_axis);
 				break;
 			}
 			case Sensor.TYPE_ORIENTATION: {
-				channelNames[0]=getString(R.string.channel_azimuth);
-				channelNames[1]=getString(R.string.channel_pitch);
-				channelNames[2]=getString(R.string.channel_roll);
+				channelNames[0] = getString(R.string.channel_azimuth);
+				channelNames[1] = getString(R.string.channel_pitch);
+				channelNames[2] = getString(R.string.channel_roll);
 				break;
 			}
 			case 7:
@@ -388,8 +403,13 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 			}
 		}
 
-		int[] colors = { Color.RED, Color.YELLOW, Color.BLUE, Color.GREEN,
-				Color.MAGENTA, Color.CYAN };
+		int[] colors = {
+				Color.RED,
+				Color.YELLOW,
+				Color.BLUE,
+				Color.GREEN,
+				Color.MAGENTA,
+				Color.CYAN };
 		for (int i = 0; i < channel.length; i++) {
 			channel[i] = new XYSeries(channelNames[i]);
 			sensorData.addSeries(channel[i]);

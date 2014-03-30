@@ -56,7 +56,14 @@
 	<string name="unit_consumption">" mA"</string>
 	<string name="unit_mindelay">" µs"</string>
 	<string name="homepage">http://www.onyxbits.de/sensorreadout</string>
+	<string name="homepage_faq">http://www.onyxbits.de/faq/sensor-readout</string>
+	<string name="homepage_sensor">http://www.onyxbits.de/sensorreadout/sensor%1$d</string>
+	<string name="homepage_market">market://search?q=pub:Onyxbits</string>
 	<string name="visit_website">Visit website</string>
 	<string name="msg_waiting_for_sensor">Waiting for sensor to become ready</string>
+	<string name="faq">FAQ</string>
+	<string name="info">info</string>
+	<string name="no_webbrowser_installed">No webbrowser installed!</string>
+	<string name="plug">More apps</string>
 
 </resources>
