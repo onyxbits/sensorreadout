@@ -8,7 +8,6 @@
 	<string name="sensor_desc_4">Gyroscope.</string>
 	<string name="sensor_desc_5">Niveau de la lumière ambiante en unités SI lux.</string>
 	<string name="sensor_desc_6">Pression atmosphérique en hPa (millibar).</string>
-	<string name="sensor_desc_6">Pression atmosphérique en hPa (millibar).</string>
 	<!-- <string name="sensor_desc_7">DEPRECATED!</string> -->
 	<string name="sensor_desc_8">Distance sensor (in most devices, this only reports a near or far state).</string>
 	<string name="sensor_desc_9">Un vecteur tridimensionnel indiquant la direction et l'ampleur de la gravité.</string>
