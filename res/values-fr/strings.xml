@@ -2,7 +2,7 @@
 <resources>
 
 	<string name="app_name">Sensor Readout</string>
-	<string name="sensor_desc_1">L'accélération de l'appareil (affectée par la force gravitationelle).</string>
+	<string name="sensor_desc_1">L\'accélération de l\'appareil (affectée par la force gravitationelle).</string>
 	<string name="sensor_desc_2">Champ magnétique ambiant.</string>
 	<string name="sensor_desc_3">Compass like sensor.</string>
 	<string name="sensor_desc_4">Gyroscope.</string>
@@ -10,10 +10,10 @@
 	<string name="sensor_desc_6">Pression atmosphérique en hPa (millibar).</string>
 	<!-- <string name="sensor_desc_7">DEPRECATED!</string> -->
 	<string name="sensor_desc_8">Distance sensor (in most devices, this only reports a near or far state).</string>
-	<string name="sensor_desc_9">Un vecteur tridimensionnel indiquant la direction et l'ampleur de la gravité.</string>
-	<string name="sensor_desc_10">Accélération sans l'effet de la gravité.</string>
-	<string name="sensor_desc_11">Le vecteur de rotation représente l'orientation de l'appareil en tant que combinaison d'un angle et d'un axe, dans lequel le dispositif a tourné d'un angle θ d'autour d'un axe [x, y, z].</string>
-	<string name="sensor_desc_12">Humidité relative de l'air ambiant en pourcent.</string>
+	<string name="sensor_desc_9">Un vecteur tridimensionnel indiquant la direction et l\'ampleur de la gravité.</string>
+	<string name="sensor_desc_10">Accélération sans l\'effet de la gravité.</string>
+	<string name="sensor_desc_11">Le vecteur de rotation représente l\'orientation de l\'appareil en tant que combinaison d\'un angle et d\'un axe, dans lequel le dispositif a tourné d\'un angle θ d\'autour d\'un axe [x, y, z].</string>
+	<string name="sensor_desc_12">Humidité relative de l\'air ambiant en pourcent.</string>
 	<string name="sensor_desc_13">Température ambiante (de la pièce) en degré Celsius.</string>
 	<string name="lbl_vendor">Vendeur</string>
 	<string name="lbl_powerconsumption">Consommation électrique</string>
