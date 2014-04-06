@@ -63,7 +63,7 @@
 	<string name="msg_waiting_for_sensor">Waiting for sensor to become ready</string>
 	<string name="faq">FAQ</string>
 	<string name="info">info</string>
-	<string name="no_webbrowser_installed">No webbrowser installed!</string>
+	<string name="no_webbrowser_installed">No web browser installed!</string>
 	<string name="plug">More apps</string>
 
 </resources>

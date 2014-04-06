@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Sensor Readout</string>
+	<string name="sensor_desc_1">L'accélération de l'appareil (affectée par la force gravitationelle).</string>
+	<string name="sensor_desc_2">Champ magnétique ambiant.</string>
+	<string name="sensor_desc_3">Compass like sensor.</string>
+	<string name="sensor_desc_4">Gyroscope.</string>
+	<string name="sensor_desc_5">Niveau de la lumière ambiante en unités SI lux.</string>
+	<string name="sensor_desc_6">Pression atmosphérique en hPa (millibar).</string>
+	<!-- <string name="sensor_desc_7">DEPRECATED!</string> -->
+	<string name="sensor_desc_8">Distance sensor (in most devices, this only reports a near or far state).</string>
+	<string name="sensor_desc_9">Un vecteur tridimensionnel indiquant la direction et l'ampleur de la gravité.</string>
+	<string name="sensor_desc_10">Accélération sans l'effet de la gravité.</string>
+	<string name="sensor_desc_11">Le vecteur de rotation représente l'orientation de l'appareil en tant que combinaison d'un angle et d'un axe, dans lequel le dispositif a tourné d'un angle θ d'autour d'un axe [x, y, z].</string>
+	<string name="sensor_desc_12">Humidité relative de l'air ambiant en pourcent.</string>
+	<string name="sensor_desc_13">Température ambiante (de la pièce) en degré Celsius.</string>
+	<string name="lbl_vendor">Vendeur</string>
+	<string name="lbl_powerconsumption">Consommation électrique</string>
+	<string name="lbl_sensor_resolution">Résolution du capteur</string>
+	<string name="lbl_sensor_version">Version</string>
+	<string name="lbl_min_delay">Délai minimal</string>
+	<string name="lbl_range">Intervalle</string>
+	<string name="lbl_unknown">inconnu</string>
+	<string name="apprater_title">Notez cet app ?</string>
+	<string name="apprater_message">Hi,\nseems like you find this app useful. Would you consider rating it? This will only take a minute of your time, but encourages further development.</string>
+	<string name="apprater_positive">Certain !</string>
+	<string name="apprater_negative">Non merci</string>
+	<string name="apprater_neutral">Plus tard</string>
+	<string name="msg_stopped">Arrêt de l\'échantillonnage</string>
+	<string name="share">Partager</string>
+	<string name="send_to">Partager avec</string>
+	<string name="unit_gyro">rad/s</string>
+	<string name="unit_light">lux</string>
+	<string name="unit_magnetic">µT</string>
+	<string name="unit_pressure">hPa</string>
+	<string name="unit_distance">cm</string>
+	<string name="unit_temperature">°C</string>
+	<string name="unit_acceleration">m/s²</string>
+	<string name="sensor_accuracy_high">Précision du capteur: HAUTE</string>
+	<string name="sensor_accuracy_medium">Précision du capteur : MOYENNE</string>
+	<string name="sensor_accuracy_low">Précision du capteur : BASSE</string>
+	<string name="sensor_accuracy_unreliable">Précision du capteur : NON FIABLE</string>
+	<string name="channel_light">Lumière</string>
+	<string name="channel_distance">Distance</string>
+	<string name="channel_pressure">Pression</string>
+	<string name="channel_temperature">Température ambiante de la pièce</string>
+	<string name="channel_x_axis">Axe X</string>
+	<string name="channel_y_axis">Axe Y</string>
+	<string name="channel_z_axis">Axe Z</string>
+	<string name="channel_azimuth">Azimuth</string>
+	<string name="channel_pitch">Pitch</string>
+	<string name="channel_roll">Roll</string>
+	<string name="channel_default">Channel</string>
+	<string name="samplerate">Samplerate: 1/%1$d ms</string>
+	<string name="unit_consumption">" mA"</string>
+	<string name="unit_mindelay">" µs"</string>
+	<string name="homepage">http://www.onyxbits.de/sensorreadout</string>
+	<string name="homepage_faq">http://www.onyxbits.de/faq/sensor-readout</string>
+	<string name="homepage_sensor">http://www.onyxbits.de/sensorreadout/sensor%1$d</string>
+	<string name="homepage_market">market://search?q=pub:Onyxbits</string>
+	<string name="visit_website">Visitez le site web</string>
+	<string name="msg_waiting_for_sensor">En attente que le capteur soit prêt</string>
+	<string name="faq">FAQ</string>
+	<string name="info">info</string>
+	<string name="no_webbrowser_installed">Aucun navigateur web installé !</string>
+	<string name="plug">Plus d\'apps</string>
+
+</resources>
