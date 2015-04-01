@@ -178,6 +178,12 @@ public class ReadoutActivity extends Activity implements View.OnTouchListener {
 				new ExportTask(this).execute(sensorData);
 				break;
 			}
+			case R.id.restart: {
+				stopSampling();
+				startActivity(getIntent());
+				finish();
+				break;
+			}
 			case R.id.info: {
 				stopSampling();
 				try {

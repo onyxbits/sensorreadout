@@ -1,11 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<item android:id="@+id/info" android:showAsAction="ifRoom|withText" android:title="@string/info" android:icon="@drawable/ic_action_info"></item><item
+	<item android:id="@+id/info" android:showAsAction="ifRoom|withText" android:title="@string/info" android:icon="@drawable/ic_action_info"></item><item android:id="@+id/restart" android:showAsAction="ifRoom|withText" android:title="@string/restart" android:icon="@drawable/ic_action_restart"></item><item
 		android:id="@+id/share"
 		android:icon="@drawable/ic_action_share"
 		android:showAsAction="ifRoom|withText"
 		android:title="@string/share">
 	</item>
+	
 	
 
 </menu>
